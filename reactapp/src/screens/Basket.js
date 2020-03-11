@@ -26,7 +26,29 @@ function Basket(props){
     }, [props.visitInBasket]);
 
 
-    var handleCheckout = () => {
+    var handleCheckout = async (total) => {
+
+        var ordersList = [];
+        for (var i=0;i<basketList.length;i++){
+            
+            console.log('basketList[i] :', basketList[i]);
+            var toSend = {
+                visitId: basketList[i].visitId,
+                infoId: basketList[i].infoId,
+                cover: basketList[i].img,
+                name: basketList[i].title,
+                price: basketList[i].price,
+                amount: basketList[i].quantity,
+
+            };
+            ordersList.push(toSend)
+        }
+        
+        var rawRes = await fetch('/checkout/getCart', {
+            method: 'POST',
+            headers: {'Accept':'application/json', 'Content-Type':'application/json'},
+            body: JSON.stringify({orders: ordersList, total: totalCmd}),
+        });
 
     }
 

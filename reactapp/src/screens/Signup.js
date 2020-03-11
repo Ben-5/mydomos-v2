@@ -46,17 +46,17 @@ function Signup(props) {
                         containerClassName='sign-form'
                         route = 'users/signup'
                         inputList={[
-                            {name: 'firstname', placeholder: 'firstname'},
-                            {name: 'lastname',placeholder:'lastname'},
+                            {name: 'firstname', placeholder: 'nom'},
+                            {name: 'lastname',placeholder:'prénom'},
                             {name: 'email',placeholder:'email'},
-                            {name: 'password',placeholder:'password', type:'password'},
-                            {name: 'confirmpassword',placeholder:'confirm password',type:'password', match: 3}
+                            {name: 'password',placeholder:'mot de passe', type:'password'},
+                            {name: 'confirmpassword',placeholder:'confirmez votre mot de passe',type:'password', match: 3}
                         ]}
 
                         btn={[{title: "S'inscrire"}]}
 
                         linkList={[
-                            {title: "J'ai déja les clefs !", link: '/signin'},
+                            {title: "J'ai déjà les clés !", link: '/signin'},
                         ]}
 
                         getRes={e=>handleRes(e)}

@@ -12,15 +12,11 @@ export default function(currentUser = false, action) {
     } else if (action.type === 'changeInfo'){
       var currentUserCopy = {...currentUser};
       console.log(currentUserCopy)
+
       currentUserCopy = {
-        userLastname : action.info.lastname,
-        userFirstname : action.info.firstname,
-        userEmail : action.info.email,
-        userBirthday : action.info.birthday,
-        userAddress : action.info.address,
-        userZIP : action.info.zip,
-        userCity : action.info.city,
-        userCountry : action.info.country}
+        ...currentUser,
+        ...action.info
+       }
       return currentUserCopy
       
     } else if (action.type === 'signout'){
