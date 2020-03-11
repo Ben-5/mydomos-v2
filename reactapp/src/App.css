@@ -1171,7 +1171,7 @@ margin-bottom: 1vmin;
 
   display: flex;
   align-items: center;
-  justify-content: start;
+  justify-content: flex-start;
   margin-bottom: 6vmin;
 
 }
