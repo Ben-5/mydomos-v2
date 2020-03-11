@@ -369,6 +369,34 @@
   animation-direction: alternate;
 } 
 
+.main-cake-image {
+
+  display: flex;
+  justify-content: center;
+  
+}
+
+
+.cake {
+  height: 60vmin;
+}
+
+@keyframes bumping {
+  from{
+      -webkit-transform: rotate(0deg);
+  }
+  to{
+      -webkit-transform: rotate(-33deg);
+  }
+}
+
+.cake {
+  transform-origin: 50% 100%;
+  animation: bumping 2s infinite alternate ease-in;
+}
+
+
+
 
 .search-container {
 
