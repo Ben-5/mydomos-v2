@@ -47,27 +47,21 @@ function Book(props){
             time: save.time,
             price: save.price,
             quantity: quantity,
-            stock: save.stock
+            stock: save.stock,
+            img: visit.cover,
         }
         props.addVisitToBasket(toAdd);
     }
 
-    console.log(visit)
-
     //Afficher les billets restants
     let stock
     for (let i = 0; i < info.length; i ++) {
-        console.log(info[i].stock)
         if (info[i].stock <= 3) {
-            console.log("if")
-            stock = "Il ne reste plus que " +  info[i].stock + " places !"
+            stock = "Il ne reste plus que " +  info[i].stock + " places !";
         } else {
-            console.log("else")
-            stock  = ""
+            stock  = "";
         }
     }
-
-    console.log(stock)
 
   return(
 
