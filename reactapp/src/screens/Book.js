@@ -103,7 +103,10 @@ function Book(props){
                     <div className="book-time"><Text text={data.time}/></div>
                     <div className="book-time"><Text text={data.lang}/></div>
                     <div className="book-time"><Text text={data.opt.join(" / ")}/></div>
-                    <div className="book-stock">{stock}</div>
+                    <div className="book-stock"><p className="book-stock">
+                        { data.stock < 3 ?  `Il ne reste que ${data.stock} places` : ""}
+                    </p></div>
+                    
                 </div>
                     <div><Text text={`${data.price} €`}/></div>
                     <div className="grid-item-book book-ticket"><InputNumber min={1} max={data.maxStock} defaultValue={1} onChange={e=>setQuantity(e)} value={quantity}/></div>
