@@ -775,11 +775,15 @@
 }
 
 .card_col {
-    
     padding: 2vmin;
     display: inline-block;
     text-decoration: none;
     padding-bottom: 6vmin;
+}
+
+.ellipsis {
+  font-size: 1.243em;
+  color: black
 }
 
 .card_link {
@@ -844,7 +848,6 @@ margin-bottom: 1vmin;
 }
 
 .rate {
-
   display: flex;
   align-items: center;
   justify-items: flex-end;
@@ -1436,9 +1439,9 @@ padding-top: 4vmin;
 
 .book-stock {
   margin-bottom: 2vmin;
-  font-size: 12px;
-  font-weight: 300;
-  color:  #791212
+  font-size: 15px;
+  font-weight: 500;
+  color:  #791212 ! important
 }
 
 .book-ticket {

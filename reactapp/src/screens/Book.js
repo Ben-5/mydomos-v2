@@ -52,22 +52,17 @@ function Book(props){
         props.addVisitToBasket(toAdd);
     }
 
-    console.log(visit)
-
     //Afficher les billets restants
     let stock
     for (let i = 0; i < info.length; i ++) {
         console.log(info[i].stock)
         if (info[i].stock <= 3) {
             console.log("if")
-            stock = "Il ne reste plus que " +  info[i].stock + " places !"
+            stock = <p className="book-stock">{`Il ne reste que ${info[i].stock} places`}</p> 
         } else {
-            console.log("else")
-            stock  = ""
+            
         }
     }
-
-    console.log(stock)
 
   return(
 
@@ -97,7 +92,7 @@ function Book(props){
                     <div className="book-time"><Text text={data.time}/></div>
                     <div className="book-time"><Text text={data.lang}/></div>
                     <div className="book-time"><Text text={data.opt.join(" / ")}/></div>
-                    <div className="book-stock"><Text text={stock}/></div>
+                    <div className="book-stock">{stock}</div>
                 </div>
                     <div><Text text={`${data.price} €`}/></div>
                     <div className="grid-item-book book-ticket"><InputNumber min={1} max={data.maxStock} defaultValue={1} onChange={e=>setQuantity(e)} value={quantity}/></div>

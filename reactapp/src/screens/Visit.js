@@ -6,11 +6,13 @@ import Text from '../components/Text';
 import Title from '../components/Title';
 import Subtitle from '../components/Subtitle';
 
-import {Row, Col, Avatar} from 'antd';
+import {Row, Col, Avatar, Typography} from 'antd';
 import { UserOutlined } from '@ant-design/icons';
 import 'antd/dist/antd.css';
 
 import '../App.css';
+
+const { Paragraph } = Typography;
 
 export default function Visit(props){
 
@@ -26,21 +28,18 @@ export default function Visit(props){
         const data = await fetch(`/visit/visitpage/${props.match.params._id}`)
         const body = await data.json()
         setVisit(body.visit)
-        setDescription(body.visit[0].desc)
         setLieu(body.visit[0].place)
+        setDescription(body.visit[0].desc)
         }
-        getVisit()  
+        getVisit()
     },[])
 
-    // //Cacher la description si trop long
-    // console.log("descri", description)
-    // console.log("lieu", lieu)
-    // var desc = description
-    // console.log("desc", desc)
-    // if (description.length > lieu.length) {
-    //     let dif = description.length - lieu.length
-    //     setDescription(desc.splice(0, dif) + "...")
-    // }
+    //Cacher la description si trop long
+    var desc = description
+    if (description.length > lieu.length) {
+        console.log(lieu.length)
+        desc = desc.slice(0, 500) + "..."
+    }
    
 
   
@@ -166,7 +165,8 @@ export default function Visit(props){
     <Row gutter={[32, 32]}>
         <Col lg={{span:12}}>
             <Subtitle subtitle="La visite" />
-            <Text text={data.desc}/></Col >
+            <Paragraph className="ellipsis" ellipsis={{ rows: 5, expandable: true }}>{data.desc}</Paragraph>
+        </Col >
         <Col lg={{span:12}}>
             <Subtitle subtitle="Le lieu" />
             <Text text={data.place}/>  
