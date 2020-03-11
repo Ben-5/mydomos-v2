@@ -30,6 +30,15 @@ export default function Visit(props){
   
   //map de toutes les infos via BDD
 const visitSelected = visit.map((data, i) => {  
+
+    const cityCountry = []
+    if(data.address.country === 'fr'){
+        cityCountry.push(<Text text={`${data.address.city}, France`}/> )
+    }
+    if(data.address.country === 'be'){
+        cityCountry.push(<Text text={`${data.address.city}, Belgique`}/> )
+    }
+
     const rateTAB = []
     if(data.rate < 0){
         data.rate = 0
@@ -114,7 +123,7 @@ const visitSelected = visit.map((data, i) => {
     <div className="visit-main">
         <div className="text-visit">
             <Title title={data.title}/>
-            <Text text={`${data.address.city}, ${data.address.country}`}/>
+            {cityCountry}
             <div className="card_pricerate">
                 <div className="card_div_rate">
                     {rateTAB} 
