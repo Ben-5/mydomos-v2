@@ -21,10 +21,18 @@ export default function SliderCity() {
         getslider()  
     },[])
 
-
 // recuperation info pour slider CITY (en ce moment à Paris)  + Mecanique note
-
 const tabSlider = slider.map((visit, i) => {
+    
+    var priceInfo = null
+    for(var l=0; l<visit.info.length; l++){
+        if(priceInfo === null || priceInfo > visit.info[l].price){
+            priceInfo = visit.info[l].price
+        }
+        console.log(priceInfo)
+    }
+
+
     const rateTAB = []
     if(visit.rate < 0){
         visit.rate = 0
@@ -47,14 +55,14 @@ const tabSlider = slider.map((visit, i) => {
                     <img className="card_img" alt="visit cover" src={visit.cover}/>
                     <h4 className="card_title">{visit.title}</h4>
                 </Link>
-                <div className="card_pricerate">
-                <div>
-                    <p className="card_price">À partir de {visit.info[0].price} €</p>
+                    <div className="card_pricerate">
+                        <div>
+                            <p className="card_price">À partir de {priceInfo} €</p>
+                        </div>
+                        <div className="card_div_rate">
+                            {rateTAB} 
+                        </div>
                     </div>
-                    <div className="card_div_rate">
-                        {rateTAB} 
-                    </div>
-                </div>
         </Col>)
 }
 })
