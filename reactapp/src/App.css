@@ -332,6 +332,44 @@
 } 
 
 
+.olive-animation {
+
+  margin-top: 26vmin;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 26vmin;
+  
+}
+
+.hand-olive {
+
+  height: 46vmin;
+  position: absolute;
+  
+}
+
+.stick-olive {
+  height: 46vmin;
+  position: absolute;
+  
+}
+
+@keyframes stick { 
+
+0%   {transform: rotate(0deg);}
+100% {transform: rotate(-7deg);}
+
+}
+
+.stick-olive {
+
+  animation: stick 0.8s infinite ease-in;
+  animation-direction: alternate;
+} 
+
+
 .search-container {
 
   display: flex;
@@ -834,17 +872,20 @@ margin-bottom: 1vmin;
 
 .card_div_rate {
   display: flex;
+  align-items: center;
 }
 
 .card_rate {
   display: flex;
+  background-color: #E0DCDC;
   justify-content: center;
   align-items: center;
   margin-top: 3vmin;
   border-radius: 50%;
-    width: 2vmin;
-    height: 2vmin;
-    margin-right: 1vmin
+  width: 1.3vmin;
+  height: 1.3vmin;
+  margin-right: 1vmin;
+  margin-top: 0
 }
 
 .rate {
@@ -866,11 +907,9 @@ margin-bottom: 1vmin;
 
 
 .visit_col {
-
   margin: 2vmin;
   display: inline-block;
-  text-decoration: none;
-
+  text-decoration: none
 }
 
 .scrolling-visit {
@@ -1126,7 +1165,8 @@ margin-bottom: 1vmin;
 
 .account-subtitle {
   margin-top: 5vmin;
-  margin-bottom: 3vmin
+  margin-bottom: 3vmin;
+  margin-left: 2vmin;
 }
 
 .avatar {
@@ -1399,6 +1439,7 @@ padding-top: 4vmin;
 /*  START BOOK screen*/
 .grid-container-book {
   padding-top: 3vmin;
+  margin-left: 2vmin;
   display: grid;
   align-items: center;
   grid-template-columns: 60vmin 20vmin 20vmin 20vmin;
