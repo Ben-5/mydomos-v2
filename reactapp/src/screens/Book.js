@@ -1,13 +1,14 @@
 import React, {useEffect, useState} from 'react';
 
 import Header from '../components/Header';
+import Navigation from '../components/Navigation';
 import Footer from '../components/Footer';
 import Title from '../components/Title';
 import Text from '../components/Text';
 import Subtitle from '../components/Subtitle';
 import Button from '../components/Button';
 
-import { Row, InputNumber } from 'antd';
+import { Row, Col, InputNumber } from 'antd';
 import {connect} from 'react-redux'
   
 
@@ -47,27 +48,21 @@ function Book(props){
             time: save.time,
             price: save.price,
             quantity: quantity,
-            stock: save.stock
+            stock: save.stock,
+            img: visit.cover,
         }
         props.addVisitToBasket(toAdd);
     }
 
-    console.log(visit)
-
     //Afficher les billets restants
     let stock
     for (let i = 0; i < info.length; i ++) {
-        console.log(info[i].stock)
         if (info[i].stock <= 3) {
-            console.log("if")
-            stock = "Il ne reste plus que " +  info[i].stock + " places !"
+            stock = "Il ne reste plus que " +  info[i].stock + " places !";
         } else {
-            console.log("else")
-            stock  = ""
+            stock  = "";
         }
     }
-
-    console.log(stock)
 
   return(
 
@@ -75,15 +70,27 @@ function Book(props){
         <Header/>
 
         <div  className="body-screen">
-            <Row justify="center" className="success-title">
-                <Title title='Choisissez votre visite'/>
-            </Row>
+        <Row className="main-caption">
+
+            <Col className= "main-caption-text" xs ={{span:24, order:2}} sm ={{span:24, order:2}} md ={{span:24, order:2}} lg ={{span:12, order:1}} xl ={{span:12, order:1}}>
+                <Title title="Faites votre choix !"/>
+                <Subtitle subtitle="Réservez des visites exclusives de maisons historiques privées animées par des propriétaires passionés"/>
+            </Col>
+
+            <Col className="olive-animation" xs ={{span:24, order:1}} sm ={{span:24, order:1}} md ={{span:24, order:1}} lg ={{span:12, order:2}} xl ={{span:12, order:2}}>
+                <img src="../hand-olive.png" className="hand-olive" alt="hand-olive" />
+                <img src="../stick-olive.png" className="stick-olive" alt="stick-olive" />     
+            </Col>
+
+        </Row>
 
         {/* CALENDRIER */}
         {/* Composant calendrier ici */}
 
             
         {/* CRENEAU DU VISITE */}
+
+        
             <div className="account-subtitle">
                 <Subtitle subtitle={`Les visites disponibles pour ${visit.title}`}/>
             </div>
@@ -108,7 +115,7 @@ function Book(props){
         </div>
 
         <Footer/>
-     
+        <Navigation/>
     </div>
 
 
