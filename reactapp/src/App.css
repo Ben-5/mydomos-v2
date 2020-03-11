@@ -369,6 +369,34 @@
   animation-direction: alternate;
 } 
 
+.main-cake-image {
+
+  display: flex;
+  justify-content: center;
+  
+}
+
+
+.cake {
+  height: 60vmin;
+}
+
+@keyframes bumping {
+  from{
+      -webkit-transform: rotate(0deg);
+  }
+  to{
+      -webkit-transform: rotate(-33deg);
+  }
+}
+
+.cake {
+  transform-origin: 50% 100%;
+  animation: bumping 2s infinite alternate ease-in;
+}
+
+
+
 
 .search-container {
 
@@ -813,11 +841,15 @@
 }
 
 .card_col {
-    
     padding: 2vmin;
     display: inline-block;
     text-decoration: none;
     padding-bottom: 6vmin;
+}
+
+.ellipsis {
+  font-size: 1.243em;
+  color: black
 }
 
 .card_link {
@@ -1210,7 +1242,7 @@ margin-bottom: 1vmin;
 
   display: flex;
   align-items: center;
-  justify-content: start;
+  justify-content: flex-start;
   margin-bottom: 6vmin;
 
 }
@@ -1476,9 +1508,9 @@ padding-top: 4vmin;
 
 .book-stock {
   margin-bottom: 2vmin;
-  font-size: 12px;
-  font-weight: 300;
-  color:  #791212
+  font-size: 15px;
+  font-weight: 500;
+  color:  #791212 ! important
 }
 
 .book-ticket {

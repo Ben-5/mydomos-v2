@@ -52,14 +52,14 @@ function Signin(props) {
                         route = 'users/signin'
                         inputList={[
                             {name: 'email', placeholder:'email'},
-                            {name: 'password',placeholder:'password', type:'password'}
+                            {name: 'password',placeholder:'mot de passe', type:'password'}
                         ]}
 
-                        btn={[{title: "Connect"}]}
+                        btn={[{title: "Se connecter"}]}
 
                         linkList={[
-                            {title: "J'ai perdu mes clefs !", link: '/home'},
-                            {title: "Je n'ai pas de clefs...", link: '/signup'},
+                            {title: "J'ai perdu mes clés !", link: '/home'},
+                            {title: "Je n'ai pas encore les clés", link: '/signup'},
                         ]}
 
                         getRes={e=>handleRes(e)}

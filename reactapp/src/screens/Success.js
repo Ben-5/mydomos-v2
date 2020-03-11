@@ -1,43 +1,61 @@
 import React from 'react';
 
-import {Col, Row} from 'antd';
-import {Link} from 'react-router-dom'
 
 import Header from '../components/Header';
-import Text from '../components/Text';
+import Button from '../components/Button';
+import Footer from '../components/Footer';
 import Title from '../components/Title';
-
-function Success(){
-
-
-
-return(
-<div className="background">
-  <Header/>
-
-    <div  className="body-screen">
-        <Row className="success-container">
-            <Col align="middle" >
-                <Title title='Votre visite est réservée !'/>
-                {/* IMAGE A REMPLACER PAR BEN */}
-                <img src="../success.png" className="success" alt="success"/>
-                <Text text="Vous allez recevoir un email de confimation." />
-            </Col>
-        </Row>
+import Subtitle from '../components/Subtitle';
+import SliderNow from '../components/SliderNow';
+import Navigation from '../components/Navigation';
 
 
+import {Row, Col} from 'antd';
+
+export default function Success(){
+
+    return(
+
+    <div className="background">
+    <Header/>
+
+        <div  className="body-screen">
+
+            <Row className= "main-caption">
+
+                <Col className= "main-caption-text" xs ={{span:24, order:2}} sm ={{span:24, order:2}} md ={{span:24, order:2}} lg ={{span:12, order:1}} xl ={{span:12, order:1}}>
+                    <Title title="Votre visite est réservée !"/>
+                    <Subtitle subtitle="Vous allez recevoir un email de confimation."/>
+                </Col>
+
+                <Col className="main-cake-image" xs ={{span:24, order:1}} sm ={{span:24, order:1}} md ={{span:24, order:1}} lg ={{span:12, order:2}} xl ={{span:12, order:2}}>
+                    <img src="../cake.png" className="cake" alt="cake" />  
+                </Col>
+
+            </Row>
+
+        </div>
+
+{/*START slider section */}
+
+        <div className="breaking-visits">
+            
+            <h3 className="sliderTitle">Découvrez d'autres lieux</h3>
+                <SliderNow />
+                    <div style={{paddingLeft: '2vmin', marginTop: '7vmin'}}>
+                        <Button link='/results' buttonTitle="Voir plus"/>
+                    </div>
+
+        </div>
+            
+
+        {/*  end partie mobile-fixed qui remplace className=menu-visit  */}
+        
+        
+
+        <Footer/>
+        <Navigation/>
     </div>
-
-     {/*  start partie mobile-fixed qui remplace className=menu-visit  */}
-     <div>
-        <Row align="middle" justify="space-around"  className="fixed-menu-success">
-            <Link to="/home" className="nav-button"><img src="../picto-search.png" className="nav-picto" alt="picto"/><h6 className="picto-title">Home</h6></Link>
-            <Link to="/results" className="nav-button"><img  src="../picto-bag.png" className="nav-picto" alt="picto" /><h6 className="picto-title">explorer</h6></Link>       
-            <Link to="/account" className="nav-button"><img src="../picto-key.png" className="nav-picto" alt="picto"/><h6 className="picto-title">Mon compte</h6></Link>
-        </Row>
-     </div>
-     </div>
     )
-}
+  }
 
-export default Success;

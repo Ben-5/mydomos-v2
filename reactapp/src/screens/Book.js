@@ -58,9 +58,8 @@ function Book(props){
     let stock
     for (let i = 0; i < info.length; i ++) {
         if (info[i].stock <= 3) {
-            stock = "Il ne reste plus que " +  info[i].stock + " places !";
-        } else {
-            stock  = "";
+            console.log("if")
+            stock = <p className="book-stock">{`Il ne reste que ${info[i].stock} places`}</p> 
         }
     }
 

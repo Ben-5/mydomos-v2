@@ -6,27 +6,40 @@ import Text from '../components/Text';
 import Title from '../components/Title';
 import Subtitle from '../components/Subtitle';
 
-import {Row, Col, Avatar} from 'antd';
+import {Row, Col, Avatar, Typography} from 'antd';
 import { UserOutlined } from '@ant-design/icons';
 import 'antd/dist/antd.css';
 
 import '../App.css';
 
+const { Paragraph } = Typography;
+
 export default function Visit(props){
 
     const [visit, setVisit] = useState([])
+    // const [description, setDescription] = useState("")
+    // const [lieu, setLieu] = useState("")
 
 
-//Récupérer la visite
-  useEffect(() => {
-    window.scrollTo(0, 0)
-    const getVisit = async() => {
-      const data = await fetch(`/visit/visitpage/${props.match.params._id}`)
-      const body = await data.json()
-      setVisit(body.visit)
-    }
-    getVisit()  
-  },[])
+    //Récupérer la visite
+    useEffect(() => {
+        window.scrollTo(0, 0)
+        const getVisit = async() => {
+        const data = await fetch(`/visit/visitpage/${props.match.params._id}`)
+        const body = await data.json()
+        setVisit(body.visit)
+        // setLieu(body.visit[0].place)
+        // setDescription(body.visit[0].desc)
+        }
+        getVisit()
+    },[])
+
+    // //Cacher la description si trop long
+    // var desc = description
+    // if (description.length > lieu.length) {
+    //     console.log(lieu.length)
+    //     desc = desc.slice(0, 500) + "..."
+    // }
   
   //map de toutes les infos via BDD
 const visitSelected = visit.map((data, i) => {  
@@ -180,7 +193,8 @@ const visitSelected = visit.map((data, i) => {
     <Row gutter={[32, 32]}>
         <Col lg={{span:12}}>
             <Subtitle subtitle="La visite" />
-            <Text text={data.desc}/></Col >
+            <Paragraph className="ellipsis" ellipsis={{ rows: 5, expandable: true }}>{data.desc}</Paragraph>
+        </Col >
         <Col lg={{span:12}}>
             <Subtitle subtitle="Le lieu" />
             <Text text={data.place}/>  
