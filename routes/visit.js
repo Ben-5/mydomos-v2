@@ -79,6 +79,7 @@ router.get('/book/:id', async function(req, res, next) {
   res.json({result: true, visit : visit}); 
 });
 
+//Afficher les visites sur le composant slidernow
 router.get('/slidernow', async function(req, res, next) {
 
   var visit = await visitModel.find({slider : "now"});
@@ -86,6 +87,7 @@ router.get('/slidernow', async function(req, res, next) {
   res.json({result: true, list : visit}); 
 });
 
+//Afficher les visites sur le composant slidercity
 router.get('/slidercity', async function(req, res, next) {
 
   var visit = await visitModel.find({slider : "city"});
@@ -93,4 +95,13 @@ router.get('/slidercity', async function(req, res, next) {
   res.json({result: true, list : visit}); 
 });
 
+
+//Afficher les visites sur le composant card
+router.get('/card', async function(req, res, next) {
+
+  var card = await visitModel.find();
+  
+  res.json({result: true, list : card}); 
+
+});
 module.exports = router;
