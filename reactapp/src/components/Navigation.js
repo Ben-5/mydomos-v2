@@ -4,7 +4,7 @@ import {connect} from 'react-redux';
 
 function Navigation(props) {
 
-  const [currentUser, setCurrentUser] = useState(props.getCurrentUser || {});
+  const [currentUser] = useState(props.getCurrentUser || {});
 
   //Changement d'avatar dans la nav mobile
   var pictoAvatar

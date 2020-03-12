@@ -10,7 +10,7 @@ import {EditOutlined} from '@ant-design/icons';
 function FormInfoUser(props) {
 
 
-    const [currentUser, setCurrentUser] = useState(props.getCurrentUser || {});
+    const [currentUser] = useState(props.getCurrentUser || {});
     const [change, setChange] = useState(false)
 
 

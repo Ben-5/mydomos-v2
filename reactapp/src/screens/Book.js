@@ -65,11 +65,13 @@ function Book(props){
     }
 
     const order = info.map((data,i) => {
-
+        var onChange = e => {
+            setQuantity(quantity)
+        }
         const dataOptList = data.opt;
         let optList = dataOptList.map((opt, k) => {
-            
-            var styleInclu = {};
+                  
+        var styleInclu = {};
                 if(opt === "XXe" || opt === "XVIIIe" ){
                  styleInclu = {display: "none"};
                 }  else{
@@ -94,9 +96,12 @@ function Book(props){
                 </div>
 
                 </div>
-                <div><Text text={`${data.price} €`}/></div>
-                <div className="grid-item-book book-ticket"><InputNumber min={1} max={data.maxStock} defaultValue={1} onChange={e=>setQuantity(e)} value={quantity}/></div>
-                <div className="grid-item-book book-button"><Button buttonTitle="Valider" onClick={ () => {handleAdd(visit, data); goToBasket()}}/></div>
+                <div className="grid-item-book book-ticket"><Text text={`${data.price} €`}/></div>
+                <div>
+                    <div className="grid-item-book book-ticket"><InputNumber min={1} max={data.maxStock} defaultValue={1} onChange={onChange} /></div>
+                </div>
+                    <div className="grid-item-book book-button"><Button buttonTitle="Valider" onClick={ () => {handleAdd(visit, data); goToBasket()}}/></div>
+                
         </div>
         )
         })

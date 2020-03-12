@@ -18,10 +18,15 @@ export default function Footer() {
                     <Title title="Soyez exclusifs !"/>
                     <Subtitle subtitle="Abonnez-vous à notre newsletter pour découvrir les nouvelles visites et offres exclusives en priorité !"/>
                     <div className="newsletter-form" >
+<<<<<<< HEAD
                             <Input onChange={e=>setNewInput(e)} placeholder="votre adresse e-mail"/>
                             <div>
                                 <OkButton/>
                             </div>
+=======
+                            <Input onChange={e=>setNewInput(e)} placeholder="email" value={newInput}/>
+                            <OkButton/>
+>>>>>>> 83606f461f8bc62c3e397fc96c0b7999dd50bde9
                     </div>
                 </Col>
                 <Col className="legs-container" xs ={{span:24, order:2}} sm ={{span:24, order:2}} md ={{span:24, order:2}} lg ={{span:12, order:2}}>

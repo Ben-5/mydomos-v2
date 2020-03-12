@@ -8,6 +8,7 @@ import {createStore, combineReducers}  from 'redux';
 //REDUCERS
 import currentUser from './reducers/user-reducer';
 import visit from './reducers/visit-reducer';
+import currentPayment from './reducers/payment-reducer';
 
 //ROUTER DOM
 import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
@@ -27,7 +28,7 @@ import PaymentScreen  from './screens/Payment'
 
 import RedirectToHome from '../src/toHome'
 
-const STORE = createStore(combineReducers({currentUser, visit}), window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
+const STORE = createStore(combineReducers({currentUser, visit, currentPayment}), window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
 
 export default function App() {
 

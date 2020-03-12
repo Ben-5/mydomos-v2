@@ -610,7 +610,6 @@
 }
 
 .sign-body-title {
-
   font-weight: 700;
   font-size: 5vmin;
   color:rgb(43, 18, 18);
@@ -618,9 +617,9 @@
 
 .navigation-menu-signinup {
   background-color: #f4f3f3;
-  min-height: 22vmin;
+  min-height: 3vmin;
   width: 100%;
-}
+  }
 
 @media only screen and (max-width: 576px) {
   .sign-body {
@@ -632,7 +631,15 @@
   .sign-form {
     padding-top: 10vmin;
   }
+  
+  .navigation-menu-signinup {
+  background-color: #f4f3f3;
+  min-height: 22vmin;
+  width: 100%;
+  }
 }
+
+
 
 .keyhole-animation {
     width: 40vmin;
