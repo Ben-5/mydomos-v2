@@ -29,7 +29,6 @@ const tabSlider = slider.map((visit, i) => {
         if(priceInfo === null || priceInfo > visit.info[l].price){
             priceInfo = visit.info[l].price
         }
-        console.log(priceInfo)
     }
 
     const rateTAB = []
