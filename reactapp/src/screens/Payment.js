@@ -24,27 +24,30 @@ function PaymentForm(props) {
 
     const [cardComplete, setCardComplete] = useState(false);
     const [error, setError] = useState(false);
-    console.log(props.rdx.currentPayment, props.rdx.currentUser)
+    const [succed, setSucceed] = useState(false);
+
+    //Ref de l'order a return
+    const [orderRef, setOrderRef] = useState(null);
+
+
     const handleSubmit = async () => {
 
-        const {error, paymentMethod} = await stripe.createPaymentMethod({
+        const {error} = await stripe.createPaymentMethod({
           type: 'card',
           card: elements.getElement(CardElement),
         });
 
-        if (error) {
-            console.log('[error]', error);
-        } else {
+        if(!error) {
             const result = await stripe.confirmCardPayment(`${props.rdx.currentPayment.client_secret}`, {
                 payment_method: {
                   card: elements.getElement(CardElement),
                   billing_details: {
                     "address": {
-                      "city": props.rdx.currentUser.userCity,
+                    //   "city": props.rdx.currentUser.userCity,
                       "country": 'FR',
-                      "line1": props.rdx.currentUser.userAdress,
+                    //   "line1": props.rdx.currentUser.userAdress,
                       "line2": null,
-                      "postal_code": props.rdx.currentUser.userZIP,
+                    //   "postal_code": props.rdx.currentUser.userZIP,
                       "state": null
                     },
                     "email": props.rdx.currentUser.userEmail,
@@ -53,12 +56,25 @@ function PaymentForm(props) {
                   },
                 }
             });
+
+            if (result.error) {
+                console.log(result.error)
+            } else {
+                if (result.paymentIntent.status === 'succeeded') {
+
+                    //AFTER PAYMENT PROCEED
+
+                    setSucceed(true);
+                }
+            }
         }
     };
 
-    // if (!props.rdx.currentUser){
-    //     return <Redirect to='/signin'/>
-    // } else {
+    if (!props.rdx.currentUser || !props.rdx.currentPayment){
+        return <Redirect to='/signin'/>
+    } else if (succed) {
+        return <Redirect to={`/success/${orderRef}`}/>
+    } else {
         return (
             <div style={{backgroundColor: '#7795f8'}}>
                  <CardElement  
@@ -70,27 +86,27 @@ function PaymentForm(props) {
                     options={{
                     iconStyle: 'solid',
                     style: {
-                        base: {
-                        iconColor: '#c4f0ff',
-                        color: '#fff',
-                        fontWeight: 500,
-                        fontFamily: 'Roboto, Open Sans, Segoe UI, sans-serif',
-                        fontSize: '16px',
-                        fontSmoothing: 'antialiased',
-                        ':-webkit-autofill': {color: '#fce883'},
-                        '::placeholder': {color: '#87bbfd'},
-                        },
-                        invalid: {
-                        iconColor: '#ffc7ee',
-                        color: '#ffc7ee',
-                        },
+                            base: {
+                                iconColor: '#c4f0ff',
+                                color: '#fff',
+                                fontWeight: 500,
+                                fontFamily: 'Roboto, Open Sans, Segoe UI, sans-serif',
+                                fontSize: '16px',
+                                fontSmoothing: 'antialiased',
+                                ':-webkit-autofill': {color: '#fce883'},
+                                '::placeholder': {color: '#87bbfd'},
+                            },
+                            invalid: {
+                                iconColor: '#ffc7ee',
+                                color: '#ffc7ee',
+                            },
                         },
                         }}
                     />
                     <Button onClick={()=>handleSubmit()} buttonTitle='Payer'/>
             </div>              
         );
-    // }
+    }
 }
 
 
