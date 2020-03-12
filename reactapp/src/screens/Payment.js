@@ -76,7 +76,7 @@ function PaymentForm(props) {
         return <Redirect to={`/success/${orderRef}`}/>
     } else {
         return (
-            <div style={{backgroundColor: '#7795f8'}}>
+            <div>
                  <CardElement  
                     onChange={(e) => {
                         setError(e.error);
