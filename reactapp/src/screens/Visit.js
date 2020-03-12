@@ -193,7 +193,7 @@ const visitSelected = visit.map((data, i) => {
     <Row gutter={[32, 32]}>
         <Col lg={{span:12}}>
             <Subtitle subtitle="La visite" />
-            <Paragraph className="ellipsis" ellipsis={{ rows: 5, expandable: true }}>{data.desc}</Paragraph>
+            <Text  text={data.desc}/>
         </Col >
         <Col lg={{span:12}}>
             <Subtitle subtitle="Le lieu" />
