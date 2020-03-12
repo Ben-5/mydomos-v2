@@ -6,13 +6,11 @@ import Text from '../components/Text';
 import Title from '../components/Title';
 import Subtitle from '../components/Subtitle';
 
-import {Row, Col, Avatar, Typography} from 'antd';
+import {Row, Col, Avatar} from 'antd';
 import { UserOutlined } from '@ant-design/icons';
 import 'antd/dist/antd.css';
 
 import '../App.css';
-
-const { Paragraph } = Typography;
 
 export default function Visit(props){
 
@@ -193,7 +191,7 @@ export default function Visit(props){
     <Row gutter={[32, 32]}>
         <Col lg={{span:12}}>
             <Subtitle subtitle="La visite" />
-            <Paragraph className="ellipsis" ellipsis={{ rows: 5, expandable: true }}>{data.desc}</Paragraph>
+            <Text  text={data.desc}/>
         </Col >
         <Col lg={{span:12}}>
             <Subtitle subtitle="Le lieu" />

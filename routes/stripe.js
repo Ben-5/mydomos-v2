@@ -6,18 +6,13 @@ const stripe = require('stripe')('sk_test_Udus5asq0LwzZrgqRkHf9EhY00BvZTBg5p');
 /* GET home page. */
 router.post('/stripe', async function(req, res, next) {
 
-  var stripeCart = req.body.orders;
-  console.log('stripeCart :', stripeCart);
-  const session = await stripe.checkout.sessions.create({
-    payment_method_types: ['card'],
-    line_items: req.body.orders,
-    success_url: 'http://localhost:3001/home',
-    cancel_url: 'http://localhost:3001/basket',
+  const paymentIntent = await stripe.paymentIntents.create({
+    amount: req.body.amount,
+    currency: 'eur',
+    metadata: {integration_check: 'accept_a_payment'},
   });
 
-  sessionStripeID = session.id;
-  
-  res.json({res: true, sessionId: sessionStripeID});
+  res.json({res: true, stripeRes: paymentIntent});
 });
 
 module.exports = router;
