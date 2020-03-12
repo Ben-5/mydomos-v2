@@ -6,13 +6,11 @@ import Text from '../components/Text';
 import Title from '../components/Title';
 import Subtitle from '../components/Subtitle';
 
-import {Row, Col, Avatar, Typography} from 'antd';
+import {Row, Col, Avatar} from 'antd';
 import { UserOutlined } from '@ant-design/icons';
 import 'antd/dist/antd.css';
 
 import '../App.css';
-
-const { Paragraph } = Typography;
 
 export default function Visit(props){
 

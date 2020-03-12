@@ -8,7 +8,7 @@ const { Option } = Select;
 
 function Header(props) {
 
-    const [currentUser, setCurrentUser] = useState(props.getCurrentUser || {});
+    const [currentUser] = useState(props.getCurrentUser || {});
 
     //Changement d'avatar dans la nav
     var pictoAvatar

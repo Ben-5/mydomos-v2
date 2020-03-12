@@ -18,7 +18,7 @@ export default function Footer() {
                     <Title title="Soyez exclusifs !"/>
                     <Subtitle subtitle="Abonnez-vous à notre newsletter pour découvrir les nouvelles visites et offres exclusives en priorité !"/>
                     <div className="newsletter-form" >
-                            <Input onChange={e=>setNewInput(e)} placeholder="email"/>
+                            <Input onChange={e=>setNewInput(e)} placeholder="email" value={newInput}/>
                             <OkButton/>
                     </div>
                 </Col>
