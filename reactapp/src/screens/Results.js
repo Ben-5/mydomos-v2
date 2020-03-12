@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState} from 'react';
 
 import {Col} from 'antd';
 
@@ -12,7 +12,7 @@ import Subtitle from '../components/Subtitle';
 
 import {Row} from 'antd'
 
-function Results(props) {
+function Results() {
 
   const [content, setContent] = useState('')
 
