@@ -3,6 +3,7 @@ var router = express.Router();
 
 var visitModel = require('../models/visit');
 
+
 router.get('/results', async function(req, res, next) {
   
   // var searchParams = {isRmv: false, };
@@ -10,6 +11,7 @@ router.get('/results', async function(req, res, next) {
 
   res.json({result: true, list: visits}); 
 });
+
 
 router.post('/addvisit', async function(req, res, next) {
 
@@ -42,6 +44,7 @@ router.post('/addvisit', async function(req, res, next) {
   res.json({result: true, saved: visitSaved});
 });
 
+
 //Ajouter des nouveaux créneaux  à une visite
 router.post('/addinfo', async function(req, res, next) {
   
@@ -63,6 +66,7 @@ router.post('/addinfo', async function(req, res, next) {
   res.json({result: true, visitInfo: visit}); 
 });
 
+
 //Récupérer les infos d'une visite
 router.get('/visitpage/:id', async function(req, res, next) {
   
@@ -70,6 +74,7 @@ router.get('/visitpage/:id', async function(req, res, next) {
 
   res.json({result: true, visit : visit}); 
 });
+
 
 //Afficher les créneaux d'une visite
 router.get('/book/:id', async function(req, res, next) {
@@ -79,6 +84,7 @@ router.get('/book/:id', async function(req, res, next) {
   res.json({result: true, visit : visit}); 
 });
 
+
 //Afficher les visites sur le composant slidernow
 router.get('/slidernow', async function(req, res, next) {
 
@@ -86,6 +92,7 @@ router.get('/slidernow', async function(req, res, next) {
 
   res.json({result: true, list : visit}); 
 });
+
 
 //Afficher les visites sur le composant slidercity
 router.get('/slidercity', async function(req, res, next) {

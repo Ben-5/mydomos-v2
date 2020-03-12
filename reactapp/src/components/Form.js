@@ -59,7 +59,6 @@ export default function Form (props) {
             
 
             var prsRes = await rawRes.json();
-            console.log(prsRes)
             props.getRes(prsRes)
         } else {
             props.getRes(result);

@@ -46,7 +46,7 @@ export default function App() {
           <Route path="/results"    component={ResultsScreen} />
           <Route path="/signin"     component={SigninScreen} />
           <Route path="/signup"     component={SignupScreen} />
-          <Route path="/success"    component={SuccessScreen} />
+          <Route path="/success/:ref"    component={SuccessScreen} />
           <Route path="/visit/:_id" component={VisitScreen} />
           <Route path="/stripe/checkout" component={PaymentScreen} />
         </Switch>
