@@ -80,7 +80,7 @@ function PaymentForm(props) {
                         });
                     }
 
-                    var rawRes = await fetch('/order', {
+                    var rawRes = await fetch('/neworder', {
                         method: 'POST',
                         headers: {'Accept':'application/json','Content-Type':'application/json'},
                         body: request,
