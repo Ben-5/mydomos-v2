@@ -66,7 +66,8 @@ function Signin(props) {
                     />
                 </div>
             </div>
-
+            
+            <div className="navigation-menu-signinup"></div>
             
             <Navigation/>
         </div>
