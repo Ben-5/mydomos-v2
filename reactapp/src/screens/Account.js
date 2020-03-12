@@ -96,15 +96,22 @@ function Account(props) {
 
     //Afficher les réservations de l'utilisateur
 
-    const data = [
-        {
-            title: 'Réservation 357',
-            description: 'lundi 1 janvier 2020'
-        },{
-            title: 'Réservation 841',
-            description: 'lundi 1 janvier 2020'
-        },
+    const dataOrder = [
+        // {
+        //     title: 'Réservation 357',
+        //     description: 'lundi 1 janvier 2020'
+        // },{
+        //     title: 'Réservation 841',
+        //     description: 'lundi 1 janvier 2020'
+        // },
     ];
+
+    var noOrder
+  if(dataOrder == 0){
+    noOrder = "Vous n'avez pas de réservation pour le moment."
+  }
+
+    
 
     if (!props.getCurrentUser) {
         return <Redirect to="/signin"/>
@@ -183,11 +190,11 @@ function Account(props) {
 
                     <div className="account-subtitle">
                         <Subtitle subtitle="Mes réservations"/>
+                        <p style={{padding:0, fontSize:'1.4em'}}>{noOrder}</p>
                     </div>
-
-                    <List className="reservations"
+                    {/* <List className="reservations"
                         itemLayout="horizontal"
-                        dataSource={data}
+                        dataSource={dataOrder}
                         renderItem={item => (
                         <List.Item
                             actions={[<Button buttonTitle="Voir"/>]}>
@@ -197,12 +204,12 @@ function Account(props) {
                             />
                         </List.Item>
                         )}
-                    />
+                    /> */}
 
                 </div>
                 {/* SLIDER */}
                 
-                <div className="breaking-visits">
+                <div style={{paddingTop:25}} className="breaking-visits">
             
                 <h3 className="sliderTitle">Visites à la une</h3>
                     <SliderNow />
