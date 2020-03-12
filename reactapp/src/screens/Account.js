@@ -3,14 +3,17 @@ import {connect} from 'react-redux';
 
 import Footer from '../components/Footer';
 import Header from '../components/Header';
+import Navigation from '../components/Navigation';
 import Title from '../components/Title';
 import Subtitle from '../components/Subtitle';
 import Text from '../components/Text';
 import Input from '../components/Input';
 import Button from '../components/Button';
 import FormInfoUser from '../components/FormInfoUser';
+import SliderNow from '../components/SliderNow';
 
-import {Col, List} from 'antd';
+import {Col, Row, List} from 'antd';
+import {EditOutlined, LogoutOutlined} from '@ant-design/icons';
 import {Link, Redirect} from 'react-router-dom'
 
 function Account(props) {
@@ -93,15 +96,22 @@ function Account(props) {
 
     //Afficher les réservations de l'utilisateur
 
-    const data = [
-        {
-            title: 'Réservation 357',
-            description: 'lundi 1 janvier 2020'
-        },{
-            title: 'Réservation 841',
-            description: 'lundi 1 janvier 2020'
-        },
+    const dataOrder = [
+        // {
+        //     title: 'Réservation 357',
+        //     description: 'lundi 1 janvier 2020'
+        // },{
+        //     title: 'Réservation 841',
+        //     description: 'lundi 1 janvier 2020'
+        // },
     ];
+
+    var noOrder
+  if(dataOrder == 0){
+    noOrder = "Vous n'avez pas de réservation pour le moment."
+  }
+
+    
 
     if (!props.getCurrentUser) {
         return <Redirect to="/signin"/>
@@ -115,54 +125,48 @@ function Account(props) {
 
                 <div className="body-screen">
 
-                <div style={{marginLeft: '2vmin', marginTop: '4vmin'}}>
-
-                    <Title title="Mon compte"/>
-                    <Button onClick={()=>props.signout()} buttonTitle="Me déconnecter"/> 
-
-                </div>
-
-                {/* COORDONNEES */}
-
-                <div className="my-account-main">
-
-                <div className="my-account">
-
-                    <Subtitle subtitle="Mes informations"/>
-
-                    <FormInfoUser/>
-
-                </div>
-
-                    {/* AVATAR */}
-
-                    <div className="my-avatar">
-
-                        <Subtitle subtitle="Mon portrait"/>
-
-                        <div className="avatar">
-
-                        <div className="middle-caption-image">
-                            <span className="background-wig" style={borderW}><img src={avatarWig} className="picto-portrait" alt="picto-portrait" onClick={() => {chooseWig("avatarWig"); props.changeAvatar("avatarWig")} }/></span>  
+                       <div className="my-account-title" style={{marginLeft: '2vmin', marginTop: '4vmin'}}>
+                           <Title title="Mon compte"/>
+                           <LogoutOutlined className="log-out" style={{ fontSize: '4vmin', marginLeft: '3vmin', color: 'white' }} onClick={()=>props.signout()}/>
                         </div>
 
-                        <div className="middle-caption-image">
-                            <span className="background-armor" style={borderA}><img src={avatarArmor} className="picto-portrait" alt="picto-portrait" onClick={() => {chooseArmor("avatarArmor"); props.changeAvatar("avatarArmor")} }/></span>  
-                        </div>
 
-                        <div className="middle-caption-image">
-                            <span className="background-medusa" style={borderM}><img src={avatarMedusa} className="picto-medusa" alt="picto-portrait" onClick={() => {chooseMedusa("avatarMedusa"); props.changeAvatar("avatarMedusa")}}/></span>  
-                        </div>
+                 {/* COORDONNEES */}
 
-                        </div>
+                    <div>
 
-                    </div>
+                        <Row className="my-account-main">
+
+                            <Col className="my-account" xs ={{span:24, order:2}} sm ={{span:24, order:2}} md ={{span:24, order:2}} lg ={{span:12, order:1}} xl ={{span:12, order:1}}>
+
+                                <FormInfoUser/>
+
+                            </Col>
+
+                            {/* AVATAR */}
+
+                            <Col className="my-avatar" xs ={{span:24, order:1}} sm ={{span:24, order:1}} md ={{span:2, order:1}} lg ={{span:12, order:2}} xl ={{span:12, order:2}}>
+
+                                <Subtitle subtitle="Mon portrait"/>
+                                
+                                
+                                <div className="avatar">
+
+                                    <span className="background-wig" style={borderW}><img src={avatarWig} className="picto-portrait" alt="picto-portrait" onClick={() => {chooseWig("avatarWig"); props.changeAvatar("avatarWig")} }/></span>  
+                                    <span className="background-armor" style={borderA}><img src={avatarArmor} className="picto-portrait" alt="picto-portrait" onClick={() => {chooseArmor("avatarArmor"); props.changeAvatar("avatarArmor")} }/></span>  
+                                    <span className="background-medusa" style={borderM}><img src={avatarMedusa} className="picto-medusa" alt="picto-portrait" onClick={() => {chooseMedusa("avatarMedusa"); props.changeAvatar("avatarMedusa")}}/></span>  
+                                
+                                </div>
+
+                            </Col>
+
+                        </Row>
 
                     </div>
                     
                     {/* CHANGER MDP */}
 
-                    <div className="my-password">
+                    {/* <div className="my-password">
 
                         <Subtitle subtitle="Modifier mon mot de passe"/>
 
@@ -180,16 +184,17 @@ function Account(props) {
 
                     <Button buttonTitle="Valider mon nouveau mot de passe"/>
 
-                    </div>
+                    </div> */}
 
                 {/* RESERVATIONS DU COMPTE */}
+
                     <div className="account-subtitle">
                         <Subtitle subtitle="Mes réservations"/>
+                        <p style={{padding:0, fontSize:'1.4em'}}>{noOrder}</p>
                     </div>
-
-                    <List
+                    {/* <List className="reservations"
                         itemLayout="horizontal"
-                        dataSource={data}
+                        dataSource={dataOrder}
                         renderItem={item => (
                         <List.Item
                             actions={[<Button buttonTitle="Voir"/>]}>
@@ -199,100 +204,23 @@ function Account(props) {
                             />
                         </List.Item>
                         )}
-                    />
+                    /> */}
 
-
+                </div>
                 {/* SLIDER */}
-                <div className="breaking-visits">
                 
+                <div style={{paddingTop:25}} className="breaking-visits">
+            
                 <h3 className="sliderTitle">Visites à la une</h3>
-
-                <div className="scrolling-wrapper">
-
-                    <Col className="card_col" sm={8} md={6} lg={6}>
-                        <h3 className="card_info">Paris</h3>
-                    <Link className="card_link">
-                        <img className="card_img" alt="visit cover" src="/cover/chanel.jpg"/>
-                        <h4 className="card_title">Appartement Chanel</h4>
-                    </Link>
-                        <div className="card_pricerate">
-                            <div>
-                                <p className="card_price">À partir de 39 €</p>
-                            </div>
-                            <div className="card_div_rate">
-                                <img className="slider_rate" alt="note" src='/note.png'/><img className="slider_rate" alt="note" src='/note.png'/><img className="slider_rate" alt="note" src='/note.png'/><img className="slider_rate" alt="note" src='/noteG.png'/><img className="slider_rate" alt="note" src='/noteG.png'/>
-                            </div>
+                    <SliderNow />
+                        <div style={{paddingLeft: '2vmin', marginTop: '7vmin'}}>
+                            <Button link='/results' buttonTitle="Voir plus"/>
                         </div>
-                    </Col>
-                    <Col className="card_col" sm={8} md={6} lg={6}>
-                        <h3 className="card_info">Bruxelles</h3>
-                    <Link className="card_link">
-                        <img className="card_img" alt="visit cover" src="/cover/tassinier.jpg"/>
-                        <h4 className="card_title">Hôtel Tassinier</h4>
-                    </Link>
-                        <div className="card_pricerate">
-                            <div>
-                                <p className="card_price">À partir de 49 €</p>
-                            </div>
-                            <div className="card_div_rate">
-                                <img className="slider_rate" alt="note" src='/note.png'/><img className="slider_rate" alt="note" src='/note.png'/><img className="slider_rate" alt="note" src='/note.png'/><img className="slider_rate" alt="note" src='/noteG.png'/><img className="slider_rate" alt="note" src='/noteG.png'/>
-                            </div>
-                        </div>
-                    </Col>
-                    <Col className="card_col" sm={8} md={6} lg={6}>
-                        <h3 className="card_info">Paris</h3>
-                    <Link className="card_link">
-                        <img className="card_img" alt="visit cover" src="/cover/tournelles.jpg"/>
-                        <h4 className="card_title">Hôtel des Tournelles</h4>
-                    </Link>
-                        <div className="card_pricerate">
-                            <div>
-                                <p className="card_price">À partir de 35 €</p>
-                            </div>
-                            <div className="card_div_rate">
-                                <img className="slider_rate" alt="note" src='/note.png'/><img className="slider_rate" alt="note" src='/note.png'/><img className="slider_rate" alt="note" src='/note.png'/><img className="slider_rate" alt="note" src='/noteG.png'/><img className="slider_rate" alt="note" src='/noteG.png'/>
-                            </div>
-                        </div>
-                    </Col>
-                    <Col className="card_col" sm={8} md={6} lg={6}>
-                        <h3 className="card_info">Paris</h3>
-                    <Link className="card_link">
-                        <img className="card_img" alt="visit cover" src="/cover/gainsbourg.jpg"/>
-                        <h4 className="card_title">Maison de Gainsbourg</h4>
-                    </Link>
-                        <div className="card_pricerate">
-                            <div>
-                                <p className="card_price">À partir de 39 €</p>
-                            </div>
-                            <div className="card_div_rate">
-                                <img className="slider_rate" alt="note" src='/note.png'/><img className="slider_rate" alt="note" src='/note.png'/><img className="slider_rate" alt="note" src='/note.png'/><img className="slider_rate" alt="note" src='/noteG.png'/><img className="slider_rate" alt="note" src='/noteG.png'/>
-                            </div>
-                        </div>
-                    </Col>
-                    <Col className="card_col" sm={8} md={6} lg={6}>
-                        <h3 className="card_info">Paris</h3>
-                    <Link className="card_link">
-                        <img className="card_img" alt="visit cover" src="/cover/ponti.jpg"/>
-                        <h4 className="card_title">Villa Ponti</h4>
-                    </Link>
-                        <div className="card_pricerate">
-                            <div>
-                                <p className="card_price">À partir de 45 €</p>
-                            </div>
-                            <div className="card_div_rate">
-                                <img className="slider_rate" alt="note" src='/note.png'/><img className="slider_rate" alt="note" src='/note.png'/><img className="slider_rate" alt="note" src='/note.png'/><img className="slider_rate" alt="note" src='/noteG.png'/><img className="slider_rate" alt="note" src='/noteG.png'/>
-                            </div>
-                        </div>
-                    </Col>
 
-                </div>
-
-                </div>
-
-                </div>
-                
+                    </div>
                 
                 <Footer/>
+                <Navigation/>
 
         </div>
         )

@@ -40,9 +40,10 @@ export default function Visit(props){
     //     console.log(lieu.length)
     //     desc = desc.slice(0, 500) + "..."
     // }
-  
+
+
   //map de toutes les infos via BDD
-const visitSelected = visit.map((data, i) => {  
+    const visitSelected = visit.map((data, i) => {  
 
     const cityCountry = []
     if(data.address.country === 'fr'){
@@ -69,7 +70,6 @@ const visitSelected = visit.map((data, i) => {
 
     const dataOptList = data.info[0].opt;
     const tagList = [];
-
         let optList = dataOptList.map((opt, k) => {
           var styleInclu = {};
           if(opt === 'Apéro' ){
