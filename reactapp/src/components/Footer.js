@@ -12,21 +12,23 @@ export default function Footer() {
 
     return (
     <footer>
-        <div className="newsletter-container">
-            <Row>
+        
+            <Row className="newsletter-container">
                 <Col className="newsletter" xs ={{span:24, order:1}} sm ={{span:24, order:1}} md ={{span:24, order:1}} lg ={{span:12, order:1}}>
                     <Title title="Soyez exclusifs !"/>
                     <Subtitle subtitle="Abonnez-vous à notre newsletter pour découvrir les nouvelles visites et offres exclusives en priorité !"/>
                     <div className="newsletter-form" >
-                            <Input onChange={e=>setNewInput(e)} placeholder="email" value={newInput}/>
-                            <OkButton/>
+                            <Input onChange={e=>setNewInput(e)} placeholder="votre adresse e-mail"/>
+                            <div>
+                                <OkButton/>
+                            </div>
                     </div>
                 </Col>
                 <Col className="legs-container" xs ={{span:24, order:2}} sm ={{span:24, order:2}} md ={{span:24, order:2}} lg ={{span:12, order:2}}>
                     <img src="../legs.png" className="legs" alt="legs" /> 
                 </Col>
             </Row>
-        </div>    
+          
         <div className= "footer-container">
             <div className= "socials-container">
                 <ExternalLink href="//facebook.com/"><img src="../facebook.png" className="socials-button" alt="facebook"/></ExternalLink>

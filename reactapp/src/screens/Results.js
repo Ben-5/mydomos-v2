@@ -12,7 +12,7 @@ import Subtitle from '../components/Subtitle';
 
 import {Row} from 'antd'
 
-function Results(props) {
+function Results() {
 
   const [content, setContent] = useState('')
 

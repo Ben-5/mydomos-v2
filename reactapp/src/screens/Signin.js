@@ -25,11 +25,18 @@ function Signin(props) {
         }
     }
 
+
     if (isLogged) {
-        return (
-            <Redirect to='/account' />
-        );
-    }
+        if (props.currentPayment) {
+            return (
+                <Redirect to='/stripe/checkout' />
+            );
+        } else {
+            return (
+                <Redirect to='/account' />
+            );
+        }
+    } 
     return (
         <div className='background'>
             
@@ -83,7 +90,7 @@ function mapDispatchToProps(dispatch) {
 }
 
 function mapStateToProps(state) {
-    return { currentUser: state.currentUser }
+    return { currentUser: state.currentUser, currentPayment: state.currentPayment }
 }
 
 export default connect(
