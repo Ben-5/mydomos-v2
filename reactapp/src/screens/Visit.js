@@ -69,12 +69,14 @@ const visitSelected = visit.map((data, i) => {
 
     const dataOptList = data.info[0].opt;
     const tagList = [];
+
         let optList = dataOptList.map((opt, k) => {
+          var styleInclu = {};
           if(opt === 'Apéro' ){
             tagList.push ( <div key={k} className="option"><span className="background-option"><img src="https://i.pinimg.com/originals/3d/97/c7/3d97c7b8000a512ddc9457990ad4732e.png" className="picto-option" alt="drink"/></span><Text text="Apéro"/></div>)
             }
             if(opt === 'Collation' ){
-                tagList.push ( <div key={k} className="option"><span className="background-option"><img src="https://i.pinimg.com/originals/c8/7e/18/c87e18940869c649eb34dd28f2b31965.png" className="picto-option" alt="breakfast"/></span><Text text="Breakfast"/></div>)
+                tagList.push ( <div key={k} className="option"><span className="background-option"><img src="https://i.pinimg.com/originals/c8/7e/18/c87e18940869c649eb34dd28f2b31965.png" className="picto-option" alt="breakfast"/></span><Text text="Collation"/></div>)
             }
             if(opt === 'Café Thé' ){
                 tagList.push ( <div key={k} className="option"><span className="background-option"><img src="https://i.pinimg.com/originals/5c/4f/42/5c4f420da05657b3404b862c8cf1edd9.png" className="picto-option" alt="coffe"/></span><Text text="Café Thé"/></div>)
@@ -83,18 +85,22 @@ const visitSelected = visit.map((data, i) => {
                 tagList.push ( <div key={k} className="option"><span className="background-option"><img src="https://i.pinimg.com/originals/3a/be/93/3abe93c50c81e43144536f796e68235f.png" className="picto-option" alt="concert"/></span><Text text="Concert"/></div>)
             }
             if(opt === 'By night' ){
+                styleInclu = {display: "none"};
                 tagList.push ( <div key={k} className="option"><span className="background-option"><img src="https://i.pinimg.com/originals/21/00/3e/21003e1267b560e9995dc1558a99c286.png" className="picto-option" alt="bynight"/></span><Text text="By Night"/></div> )
             }
             if(opt === 'Perle rare' ){
+                styleInclu = {display: "none"};
                 tagList.push ( <div key={k} className="option"><span className="background-option"><img src="https://i.pinimg.com/originals/f3/07/b7/f307b7f65051dbf839e187e1b3e26f0f.png" className="picto-option" alt="perle"/></span><Text text="Perle rare"/></div> )
             }
             if(opt === 'XXe' ){
-                tagList.push ( <div key={k} className="option"><span className="background-option"><img src="https://i.pinimg.com/originals/11/8b/d3/118bd33cd0f34191d8302ee9ce056868.png" className="picto-option" alt="XXe"/></span><Text text="XXe"/></div> )
+                styleInclu = {display: "none"};
+                tagList.push ( <div key={k} className="option"><span className="background-option"><img src="https://i.pinimg.com/originals/11/8b/d3/118bd33cd0f34191d8302ee9ce056868.png" className="picto-option" alt="XXe"/></span><p className="Text paragraphe-container" >XX<sup>e</sup></p></div> )
             }
             if(opt === 'XVIIIe' ){
-                tagList.push ( <div key={k} className="option"><span className="background-option"><img src="https://i.pinimg.com/originals/32/47/7c/32477c2f02b60b78e93ef830c38d17a0.png" className="picto-option" alt="XVIIIe"/></span><Text text="XVIIIe"/></div> )
+                styleInclu = {display: "none"};
+                tagList.push ( <div key={k} className="option"><span className="background-option"><img src="https://i.pinimg.com/originals/32/47/7c/32477c2f02b60b78e93ef830c38d17a0.png" className="picto-option" alt="XVIIIe"/></span><p className="Text paragraphe-container" >XVIII<sup>e</sup></p></div> )
             }
-          return ( <Text key={k} text={opt} />)
+          return ( <Text style={styleInclu} key={k} text={opt} />)
         });
 
     return(

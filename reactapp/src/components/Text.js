@@ -18,7 +18,7 @@ export default function Text(props){
     }
 
     return(
-        <div>
+        <div style={props.style}>
             {toDis}
         </div>
     );

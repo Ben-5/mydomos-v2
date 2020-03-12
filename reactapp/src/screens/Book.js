@@ -93,23 +93,26 @@ function Book(props){
             <div className="account-subtitle">
                 <Subtitle subtitle={`Les visites disponibles pour ${visit.title}`}/>
             </div>
-
             {info.map((data,i) => (
 
-            <div key={i} className="grid-container-book" style={{borderTop :"solid 1px #B5ACAC"}}>
+                <div key={i} className="grid-container-book" style={{borderTop :"solid 1px #B5ACAC"}}>
 
-                <div className="grid-item-book book-date">
-                    <div className="book-date"><Text text={new Date(data.date).toLocaleDateString('fr-FR', options)}/></div>
-                    <div className="book-time"><Text text={data.time}/></div>
-                    <div className="book-time"><Text text={data.lang}/></div>
-                    <div className="book-time"><Text text={data.opt.join(" / ")}/></div>
-                    <div className="book-stock">{stock}</div>
+                    <div className="grid-item-book book-date">
+                        <div className="book-date"><Text text={new Date(data.date).toLocaleDateString('fr-FR', options)}/></div>
+                        <div className="book-time"><Text text={data.time}/></div>
+                        <div className="book-time"><Text text={data.lang}/></div>
+                        <div className="book-time"><Text text={data.opt.join(" / ")}/></div>
+                        <div className="book-stock"><p className="book-stock">
+                            { data.stock > 1 && data.stock < 4 ?  `Il ne reste que ${data.stock} places` : ""}
+                            { data.stock === 1 ?  `Il ne reste que ${data.stock} place` : ""}
+                        </p></div>
+                        
+                    </div>
+                        <div><Text text={`${data.price} €`}/></div>
+                        <div className="grid-item-book book-ticket"><InputNumber min={1} max={data.maxStock} defaultValue={1} onChange={e=>setQuantity(e)} value={quantity}/></div>
+                        <div className="grid-item-book book-button"><Button buttonTitle="Valider" onClick={ () => {handleAdd(visit, data); goToBasket()}}/></div>
                 </div>
-                    <div><Text text={`${data.price} €`}/></div>
-                    <div className="grid-item-book book-ticket"><InputNumber min={1} max={data.maxStock} defaultValue={1} onChange={e=>setQuantity(e)} value={quantity}/></div>
-                    <div className="grid-item-book book-button"><Button buttonTitle="Valider" onClick={ () => {handleAdd(visit, data); goToBasket()}}/></div>
-            </div>
-            ))}
+                ))}
                 
         </div>
 

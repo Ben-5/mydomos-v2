@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import {Link} from 'react-router-dom'
-import {connect} from 'react-redux'
+import {Link}                         from 'react-router-dom';
+import {connect}                      from 'react-redux';
 
 import Header from '../components/Header';
 import Text from '../components/Text';
@@ -9,6 +9,7 @@ import Footer from '../components/Footer';
 import Title from '../components/Title';
 import Subtitle from '../components/Subtitle';
 import SliderNow from '../components/SliderNow';
+import Navigation from '../components/Navigation';
 
 
 import {Row, Col} from 'antd';
@@ -30,25 +31,33 @@ function Basket(props){
 
         var ordersList = [];
         for (var i=0;i<basketList.length;i++){
-            
-            console.log('basketList[i] :', basketList[i]);
             var toSend = {
-                visitId: basketList[i].visitId,
-                infoId: basketList[i].infoId,
-                cover: basketList[i].img,
+                images: [basketList[i].img],
                 name: basketList[i].title,
-                price: basketList[i].price,
-                amount: basketList[i].quantity,
-
+                amount: basketList[i].price * 100,
+                currency: 'eur',
+                quantity: basketList[i].quantity,
             };
             ordersList.push(toSend)
         }
         
-        var rawRes = await fetch('/checkout/getCart', {
+
+        var rawRes = await fetch('/checkout/stripe', {
             method: 'POST',
             headers: {'Accept':'application/json', 'Content-Type':'application/json'},
-            body: JSON.stringify({orders: ordersList, total: totalCmd}),
+            body: JSON.stringify({orders: ordersList}),
         });
+
+        var response = await rawRes.json();
+
+        if (response.res) {
+            console.log(response);
+            // stripe.redirectToCheckout({
+            //     sessionId: response.res.sessionId,
+            // }).then(function(result) {
+            //     console.log('result :', result);
+            // });
+        }
 
     }
 
@@ -60,21 +69,13 @@ function Basket(props){
     //Afficher un texte différent si le panier est vide
     var subVisit;
     var sliderTitle;
-    var buttonConfirm;
-    var buttonLink;
-    var checkoutButton;
-    
+
     if(!basketList[0]){
         subVisit = "Vous n'avez aucune visite dans votre sélection.";
         sliderTitle = "Pourquoi ne pas commencez par celles-ci ?";
-        buttonConfirm = "Rechercher des visites";
-        buttonLink = "/results";
-        checkoutButton = (<Button buttonTitle={buttonConfirm} link={buttonLink}/>);
     } else {
         subVisit = "Réservez des visites exclusives de maisons historiques privées animées par des propriétaires passionés";
         sliderTitle = "Découvrez d'autres lieux";
-        buttonConfirm = "Valider la commande";
-        checkoutButton = (<Button buttonTitle={buttonConfirm} onClick={()=>handleCheckout()}/>);
     }
     
     //Afficher le total du panier
@@ -82,10 +83,8 @@ function Basket(props){
     let totalCmd = 0
     for (var i = 0; i < basketList.length; i++ ) {
        totalCmd = basketList[i].price * basketList[i].quantity + totalCmd
-       total = totalCmd + " €"
+       total = "Total : " + totalCmd + " €"
     }
-
-
 
     return(
 
@@ -116,13 +115,13 @@ function Basket(props){
 
                 <Col xs={{span:24}}>
                 <Subtitle subtitle={`${order.title} - ${new Date(order.date).toLocaleDateString('fr-FR', options)}`} />
-                    <Col style={{borderTopStyle: "inset"}}>
+                    <Col style={{borderTop :"solid 1px #B5ACAC"}}>
                         
                     </Col>
                         <Row style={{paddingTop: '3vmin', paddingBottom: '3vmin'}} justify="space-between" align='middle'>
                             <Text text={order.time} />
                             <Text text={`${order.price} € par personne`}/>
-                            <Text text={`${order.quantity} places`} />
+                            {order.quantity === 1 ? <Text text={`${order.quantity} place`}/> : <Text text={`${order.quantity} places`}/>} 
                             <Text text={`${order.price * order.quantity} €`}/>
                             <Text onClick={()=>props.rmvFromCart(i)} isLink={true} text={`Supprimer`} />
                         </Row>
@@ -130,58 +129,50 @@ function Basket(props){
                 
             </Row>
 
-            
-
         ))}
 
             <Row align="middle" className="menu-basket">
-                <Text text={total}/>
+                <p className="totalCmd">{total}</p>
             </Row>
 
         {/* start partie remplacée par className=fixed-menu-visit  */}
         
         <Row align="middle" className="menu-basket">
-            {checkoutButton}
+        { !basketList[0] ?  "" : <Button buttonTitle="Valider la commande" onClick={()=>handleCheckout()}/>}
         </Row>
         
     </div>
 
 
-{/*START slider section */}
-    <div style={{paddingBottom: '8vmin', paddingTop: '8vmin'}} className="paris-visits">
-            
-            <h3 className="sliderTitle">{sliderTitle}</h3>
-
-            <SliderNow />
-
-                    <div style={{paddingLeft: '2vmin', marginTop: '7vmin'}}>
-                        <Button link='/results' buttonTitle="Voir plus"/>
-                    </div>
+            {/*START slider section */}
+            <div style={{paddingBottom: '8vmin', paddingTop: '8vmin'}} className="paris-visits">
+                <h3 className="sliderTitle">{sliderTitle}</h3>
+                <SliderNow />
+                <div style={{paddingLeft: '2vmin', marginTop: '7vmin'}}>
+                    <Button link='/results' buttonTitle="Voir plus"/>
+                </div>
             </div>
-{/* --------> END slider section  */}
+            {/* --------> END slider section  */}
 
 
-            <Row className="menu-success" >
-                <p className="menu-basket-text" >Valider la commande</p>
-            </Row>
-            
-            {/*  end partie mobile-fixed qui remplace className=menu-visit  */}
+        <Footer/>
 
         {/*  start partie mobile-fixed qui remplace className=menu-visit  */}
 
-        <div className="menu-success" >
-            <Link to='/signin'>
-                <p className="menu-basket-text">Valider la commande</p>
-            </Link>
-        </div>
-        
+        {!basketList[0] ? 
+        <Navigation/>
+        :
+        <Row className="fixed-menu-success">
+            <p className="totalCmdMobile">{total}</p>
+            <Button to='/signin' buttonTitle="Valider la commande" onClick={()=>handleCheckout()}/>
+        </Row>
+        }
 
         {/*  end partie mobile-fixed qui remplace className=menu-visit  */}
         
         <Footer/>
-
     </div>  
-
+    
     
     )
 }

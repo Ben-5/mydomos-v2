@@ -7,7 +7,7 @@ var logger = require('morgan');
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var visitRouter = require('./routes/visit');
-var paymentRouter = require('./routes/payment');
+var paymentRouter = require('./routes/stripe');
 
 var app = express();
 var uniqid = require('uniqid');

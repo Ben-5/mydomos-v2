@@ -596,7 +596,12 @@
   font-weight: 700;
   font-size: 5vmin;
   color:rgb(43, 18, 18);
+}
 
+.navigation-menu-signinup {
+  background-color: #f4f3f3;
+  min-height: 22vmin;
+  width: 100%;
 }
 
 @media only screen and (max-width: 576px) {
@@ -608,7 +613,6 @@
   
   .sign-form {
     padding-top: 10vmin;
-
   }
 }
 
@@ -628,7 +632,6 @@
   }
 
 .keyhole {
-
     height: 33vmin;
     position: absolute;
     
@@ -644,7 +647,6 @@
   }
   
 .cover {
-
     animation: turning 2s infinite;
     animation-direction: alternate;
   }
@@ -1394,7 +1396,7 @@ padding-top: 4vmin;
 }
 
 .fixed-menu-visit {
-  background-color: #f4f3f3;
+  background-color: white;
   height: 18vmin;
   position:fixed;
   bottom: 0;
@@ -1450,6 +1452,9 @@ padding-top: 4vmin;
   position:fixed;
   bottom: 0;
   width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
   min-height: 16vmin;
   /* padding-bottom: 2.2vmin; A voir avec BEN */ 
 }
@@ -1492,6 +1497,19 @@ padding-top: 4vmin;
 .menu-basket{
   justify-content: flex-end;
   margin-right: 2vmin;
+}
+
+.totalCmd {
+  color: #791212;
+  font-weight: 500;
+  font-size : 22px;
+}
+
+.totalCmdMobile {
+  color: #791212;
+  font-weight: 500;
+  font-size : 22px;
+  margin: 0
 }
 
 @media only screen and (max-width: 576px) {
