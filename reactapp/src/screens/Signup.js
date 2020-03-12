@@ -63,6 +63,7 @@ function Signup(props) {
                     />
                 </div>
             </div>
+            <div className="navigation-menu-signinup"></div>
             <Navigation/>
         </div>
     );

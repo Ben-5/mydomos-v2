@@ -104,7 +104,8 @@ function Book(props){
                     <div className="book-time"><Text text={data.lang}/></div>
                     <div className="book-time"><Text text={data.opt.join(" / ")}/></div>
                     <div className="book-stock"><p className="book-stock">
-                        { data.stock < 3 ?  `Il ne reste que ${data.stock} places` : ""}
+                        { data.stock > 1 && data.stock < 4 ?  `Il ne reste que ${data.stock} places` : ""}
+                        { data.stock === 1 ?  `Il ne reste que ${data.stock} place` : ""}
                     </p></div>
                     
                 </div>
