@@ -3,6 +3,7 @@ import {connect} from 'react-redux';
 
 import Footer from '../components/Footer';
 import Header from '../components/Header';
+import Navigation from '../components/Navigation';
 import Title from '../components/Title';
 import Subtitle from '../components/Subtitle';
 import Text from '../components/Text';
@@ -131,11 +132,6 @@ function Account(props) {
 
                             <Col className="my-account" xs ={{span:24, order:2}} sm ={{span:24, order:2}} md ={{span:24, order:2}} lg ={{span:12, order:1}} xl ={{span:12, order:1}}>
 
-                                
-                                <div className="my-information-title">
-                                    <Subtitle subtitle="Mes informations"/>
-                                </div>
-
                                 <FormInfoUser/>
 
                             </Col>
@@ -184,6 +180,7 @@ function Account(props) {
                     </div> */}
 
                 {/* RESERVATIONS DU COMPTE */}
+
                     <div className="account-subtitle">
                         <Subtitle subtitle="Mes réservations"/>
                     </div>
@@ -216,6 +213,7 @@ function Account(props) {
                     </div>
                 
                 <Footer/>
+                <Navigation/>
 
         </div>
         )

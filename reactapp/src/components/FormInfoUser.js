@@ -3,6 +3,7 @@ import {connect} from 'react-redux';
 
 import Input from './Input';
 import Button from './Button';
+import Subtitle from '../components/Subtitle';
 import Text from './Text';
 import {EditOutlined} from '@ant-design/icons';
 
@@ -39,7 +40,7 @@ function FormInfoUser(props) {
             return (
                 <div>
 
-                <div className="grid-container">
+                    <div className="grid-container">
 
                     <div className="grid-item account-info"><Text text="Nom"/></div>
                     <div className="grid-item "><Input placeholder="nom" type="text" onChange={e=>setLastname(e)} value={userLastname}/></div>
@@ -79,7 +80,10 @@ function FormInfoUser(props) {
             
                 <div>
 
-                <EditOutlined buttonTitle="Modifier mes informations" onClick={ () => setChange(true)}/> 
+                    <div className= "my-account-title">
+                        <Subtitle subtitle="Mes informations"/>
+                        <EditOutlined style={{ fontSize: '3vmin', marginLeft: '3vmin' }} onClick={ () => setChange(true)}/> 
+                    </div>
 
                     <div className="grid-container">
 
