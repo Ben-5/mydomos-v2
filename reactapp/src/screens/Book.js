@@ -16,8 +16,8 @@ function Book(props){
 
     const [visit, setVisit] = useState([]);
     const [info, setInfo] = useState([]);
-    const [quantity, setQuantity] = useState(1)
-
+    const [quantity, setQuantity] = useState([])
+ 
     useEffect(() => {
         window.scrollTo(0, 0)
         const getinfo = async() => {
@@ -63,11 +63,13 @@ function Book(props){
         }
 
     }
+   
+    var onChange = e => {
+        setQuantity(e)
+    }
 
     const order = info.map((data,i) => {
-        var onChange = e => {
-            setQuantity(quantity)
-        }
+
         const dataOptList = data.opt;
         let optList = dataOptList.map((opt, k) => {
                   
@@ -100,7 +102,7 @@ function Book(props){
                 <div>
                     <div className="grid-item-book book-ticket"><InputNumber min={1} max={data.maxStock} defaultValue={1} onChange={onChange} /></div>
                 </div>
-                    <div className="grid-item-book book-button"><Button buttonTitle="Valider" onClick={ () => {handleAdd(visit, data); goToBasket()}}/></div>
+                    <div  className="grid-item-book book-button"><Button buttonTitle="Valider" onClick={ () => {handleAdd(visit, data); goToBasket()}}/></div>
                 
         </div>
         )
