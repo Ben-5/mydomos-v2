@@ -14,21 +14,46 @@
 }
 
 .body-screen-stripe {
-  padding-top: 14vmin;
+  
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   height: 100vh;
   background-color: #f3f3f4;
+  
 
 }
 
+.stripe-main {
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  
+}
+
+.stripe-screen {
+
+  height: 12vmin;
+  width: 70vmin;
+  background-color: white;
+  margin-bottom: 4vmin;
+  padding: 4vmin;
+  border-radius: 1vmin;
+  border: 1px solid #b1abab;
+  
+  
+}
+
+
 .card-picto {
-  height: 30vmin;
+  height: 33vmin;
   margin-bottom: 4vmin;
 
 }
+
+
 
 /* SET FONT */
 * {
@@ -576,10 +601,11 @@
   padding-left: 2vmin;
   transition: 0.1s ease-out;
   
+  
 }
 
 ::placeholder {
-  font-size: 2.5vmin;
+  font-size: 2.4vmin;
 }
 
 .input-container:hover {
