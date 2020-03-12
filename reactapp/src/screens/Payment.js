@@ -1,7 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { connect } from 'react-redux';
 
-import Form from '../components/Form';
+import { Redirect } from 'react-router-dom';
+
+//component
+import Button from '../components/Button';
 
 //stripe
 import { Elements } from '@stripe/react-stripe-js';
@@ -19,68 +22,90 @@ function PaymentForm(props) {
     const stripe = useStripe();
     const elements = useElements();
 
-    const handleSubmit = async (event) => {
-        // Block native form submission.
-        event.preventDefault();
-    
-        if (!stripe || !elements) {
-          // Stripe.js has not loaded yet. Make sure to disable
-          // form submission until Stripe.js has loaded.
-          return;
-        }
-    
-        // Get a reference to a mounted CardElement. Elements knows how
-        // to find your CardElement because there can only ever be one of
-        // each type of element.
-        const cardElement = elements.getElement(CardElement);
-    
-        // Use your card Element with other Stripe.js APIs
+    const [cardComplete, setCardComplete] = useState(false);
+    const [error, setError] = useState(false);
+    console.log(props.rdx.currentPayment, props.rdx.currentUser)
+    const handleSubmit = async () => {
+
         const {error, paymentMethod} = await stripe.createPaymentMethod({
           type: 'card',
-          card: cardElement,
+          card: elements.getElement(CardElement),
         });
 
         if (error) {
             console.log('[error]', error);
         } else {
-            console.log('[PaymentMethod]', paymentMethod);
+            const result = await stripe.confirmCardPayment(`${props.rdx.currentPayment.client_secret}`, {
+                payment_method: {
+                  card: elements.getElement(CardElement),
+                  billing_details: {
+                    "address": {
+                      "city": props.rdx.currentUser.userCity,
+                      "country": 'FR',
+                      "line1": props.rdx.currentUser.userAdress,
+                      "line2": null,
+                      "postal_code": props.rdx.currentUser.userZIP,
+                      "state": null
+                    },
+                    "email": props.rdx.currentUser.userEmail,
+                    "name": `${props.rdx.currentUser.userLastName} ${props.rdx.currentUser.userFirstname}`,
+                    "phone": null,
+                  },
+                }
+            });
         }
     };
 
-    return (
-
-        <Form
-            containerClassName='sign-form'            
-            inputList={[                
-                {name: 'email', placeholder:'email'},                
-                {name: 'password',placeholder:'mot de passe', type:'password'}                
-            ]}                
-
-            btn={[{title: "Se connecter"}]}                
-
-            linkList={[                
-                {title: "J'ai perdu mes clés !", link: '/home'},                
-                {title: "Je n'ai pas encore les clés", link: '/signup'},                
-            ]}                
-
-            getRes={e=>console.log(e)}
-        />               
-    );
+    // if (!props.rdx.currentUser){
+    //     return <Redirect to='/signin'/>
+    // } else {
+        return (
+            <div style={{backgroundColor: '#7795f8'}}>
+                 <CardElement  
+                    onChange={(e) => {
+                        setError(e.error);
+                        setCardComplete(e.complete);
+                    }} 
+    
+                    options={{
+                    iconStyle: 'solid',
+                    style: {
+                        base: {
+                        iconColor: '#c4f0ff',
+                        color: '#fff',
+                        fontWeight: 500,
+                        fontFamily: 'Roboto, Open Sans, Segoe UI, sans-serif',
+                        fontSize: '16px',
+                        fontSmoothing: 'antialiased',
+                        ':-webkit-autofill': {color: '#fce883'},
+                        '::placeholder': {color: '#87bbfd'},
+                        },
+                        invalid: {
+                        iconColor: '#ffc7ee',
+                        color: '#ffc7ee',
+                        },
+                        },
+                        }}
+                    />
+                    <Button onClick={()=>handleSubmit()} buttonTitle='Payer'/>
+            </div>              
+        );
+    // }
 }
 
 
-function Payment() {
+function Payment(props) {
     return (
         <div className='payement-page'>
             <Elements stripe={stripePromise}>
-                <PaymentForm />
+                <PaymentForm rdx={props.state} />
             </Elements>
         </div>
     );
 }
 
 function mapStateToProps(state) {
-    return { currentUser: state.currentUser }
+    return {state: state}
 }
 
 export default connect(

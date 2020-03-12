@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import {Link}                         from 'react-router-dom';
-import {connect}                      from 'react-redux';
+import {Redirect} from 'react-router-dom';
+import {connect} from 'react-redux';
 
 import Header from '../components/Header';
 import Text from '../components/Text';
@@ -16,6 +16,8 @@ import {Row, Col} from 'antd';
 
 function Basket(props){
 
+    const [goToPayment, setGoToPayment] = useState(false);
+
     const [basketList, setBasketList] = useState([]);
 
     useEffect(()=>{
@@ -28,40 +30,19 @@ function Basket(props){
 
 
     var handleCheckout = async (total) => {
-
-        var ordersList = [];
+        var total = 0;
         for (var i=0;i<basketList.length;i++){
-            var toSend = {
-                images: [basketList[i].img],
-                name: basketList[i].title,
-                amount: basketList[i].price * 100,
-                currency: 'eur',
-                quantity: basketList[i].quantity,
-            };
-            ordersList.push(toSend)
+            total = total + basketList[i].price * basketList[i].quantity;
         }
-        
 
         var rawRes = await fetch('/checkout/stripe', {
             method: 'POST',
             headers: {'Accept':'application/json', 'Content-Type':'application/json'},
-            body: JSON.stringify({orders: ordersList}),
+            body: JSON.stringify({amount: total * 100}),
         });
-
         var response = await rawRes.json();
-
-        if (response.res) {
-            console.log(response);
-            // stripe.redirectToCheckout({
-            //     sessionId: response.res.sessionId,
-            // }).then(function(result) {
-            //     console.log('result :', result);
-            // });
-        }
-
+        if (response.res) {props.addCurrentPayment(response.stripeRes); setGoToPayment(true);}
     }
-
-
 
     //Formater la date
     const options = { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' };
@@ -86,6 +67,9 @@ function Basket(props){
        total = "Total : " + totalCmd + " €"
     }
 
+    if (goToPayment) {
+        return <Redirect to='/stripe/checkout' />
+    }
     return(
 
     <div className="background">
@@ -185,6 +169,9 @@ function mapDispatchToProps(dispatch){
     return {
       rmvFromCart: function(index){
         dispatch({type: 'rmvVisit', toRmv: index});
+      },
+      addCurrentPayment: function(intent){
+        dispatch({type: 'addCurrentPayment', toAdd: intent});
       }
     }
 }
