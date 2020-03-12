@@ -8,6 +8,7 @@ var uid2 = require("uid2");
 
 //db models
 var UserModel = require('../models/user');
+var orderModel = require('../models/order');
 
 /* GET users listing. */
 router.get('/', function(req, res, next) {
@@ -22,7 +23,7 @@ router.post('/signup', async function(req, res, next) {
   var pswd = req.body.password;
 
   console.log(lastname)
-  
+
   var user = await UserModel.findOne({
     userEmail: mail
   });

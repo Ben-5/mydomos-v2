@@ -54,16 +54,6 @@ function Book(props){
         props.addVisitToBasket(toAdd);
     }
 
-    //Afficher les billets restants
-    let stock
-    for (let i = 0; i < info.length; i ++) {
-        if (info[i].stock <= 3) {
-            console.log("if")
-            stock = <p className="book-stock">{`Il ne reste que ${info[i].stock} places`}</p> 
-        }
-
-    }
-
     const order = info.map((data,i) => {
 
         const dataOptList = data.opt;
@@ -89,9 +79,9 @@ function Book(props){
                 </div>
               
                 <div className="book-stock"><p className="book-stock">
-                    { data.stock < 3 ?  `Il ne reste que ${data.stock} places` : ""}
-                </p>
-                </div>
+                    { data.stock > 1 && data.stock < 4 ?  `Il ne reste que ${data.stock} places` : ""}
+                    { data.stock === 1 ?  `Il ne reste que ${data.stock} place` : ""}
+                </p></div>
 
                 </div>
                 <div><Text text={`${data.price} €`}/></div>
