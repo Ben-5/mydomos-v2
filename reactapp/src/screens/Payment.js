@@ -63,14 +63,12 @@ function PaymentForm(props) {
                 if (result.paymentIntent.status === 'succeeded') {
 
                     //AFTER PAYMENT PROCEED
-
                     //add the order to db
 
                     var basket = props.rdx.visit;
-                    var request = [];
+                    var orderList = [];
                     for (var i=0;i<basket.length;i++){
-                        console.log('basket[i] :', basket[i]);
-                        request.push({
+                        orderList.push({
                             quantity: basket[i].quantity,
                             visitId: basket[i].visitId,
                             slotId: basket[i].infoId,
@@ -80,10 +78,10 @@ function PaymentForm(props) {
                         });
                     }
 
-                    var rawRes = await fetch('/neworder', {
+                    var rawRes = await fetch('/order/neworder', {
                         method: 'POST',
                         headers: {'Accept':'application/json','Content-Type':'application/json'},
-                        body: request,
+                        body: JSON.stringify({order: orderList, userId: props.rdx.currentUser.userRef, total: result.paymentIntent.amount}),
                     });
 
 
