@@ -4,6 +4,7 @@ import {connect} from 'react-redux';
 import Input from './Input';
 import Button from './Button';
 import Text from './Text';
+import {EditOutlined} from '@ant-design/icons';
 
 function FormInfoUser(props) {
 
@@ -65,6 +66,7 @@ function FormInfoUser(props) {
                     <div className="grid-item "><Input placeholder="pays" type="text" onChange={e=>setCountry(e)} value={userCountry}/></div>
                     
                 </div> 
+
                     <Button buttonTitle="Enregistrer" onClick={ () => {updateUser(info); props.changeInfo(info); setChange(false)}}/> 
 
                 </div>
@@ -77,7 +79,9 @@ function FormInfoUser(props) {
             
                 <div>
 
-                <div className="grid-container">
+                <EditOutlined buttonTitle="Modifier mes informations" onClick={ () => setChange(true)}/> 
+
+                    <div className="grid-container">
 
                     <div className="grid-item account-info"><Text text="Nom"/></div>
                     <div className="grid-item "><Text text={userLastname}/></div>
@@ -103,9 +107,8 @@ function FormInfoUser(props) {
                     <div className="grid-item account-info"><Text text="Pays"/></div>
                     <div className="grid-item"><Text text={userCountry}/></div>
                     
-                </div> 
-                    <Button buttonTitle="Modifier mes informations" onClick={ () => setChange(true)}/> 
-
+                    </div> 
+                   
                 </div>
             )
 
