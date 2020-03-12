@@ -71,11 +71,20 @@ function PaymentForm(props) {
 
 function Payment() {
     return (
-        <div className='payement-page'>
-            <Elements stripe={stripePromise}>
-                <PaymentForm />
-            </Elements>
-        </div>
+            <div className='payement-page'>
+                <header className="header-container">
+                    <div className="header-logo">
+                        <img src="../logo.png" className="logo" alt="logo" />
+                        <div className="header-title">MYDOMOS</div>
+                    </div>
+                </header>
+                <div className='body-screen-stripe'>
+                    <img src="../card.png" className="card-picto" alt="card" />
+                    <Elements stripe={stripePromise}>
+                        <PaymentForm />
+                    </Elements>
+                </div>
+            </div>  
     );
 }
 

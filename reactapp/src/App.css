@@ -13,6 +13,23 @@
   padding-right: 11.6vmin;
 }
 
+.body-screen-stripe {
+  padding-top: 14vmin;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  background-color: #f3f3f4;
+
+}
+
+.card-picto {
+  height: 30vmin;
+  margin-bottom: 4vmin;
+
+}
+
 /* SET FONT */
 * {
   font-family: 'Montserrat';
@@ -555,13 +572,14 @@
   width: 100%;
   border: 1px solid #b1abab;
   border-radius: 1px;
-  padding: 4px;
-  padding-left: 0.5em;
+  padding: 1vmin;
+  padding-left: 2vmin;
   transition: 0.1s ease-out;
+  
 }
 
 ::placeholder {
-  font-size: 1.5vmin;
+  font-size: 2.5vmin;
 }
 
 .input-container:hover {
@@ -769,14 +787,21 @@
 .okbtn-container { 
   background-color: #791212;
   border: 0;
-  color: white;
+  color:white;
+  display: flex;
+  font-weight: 500;
+  font-size: 2.4vmin;
+  justify-content: center;
+  align-items: center;
   border-radius: 50%;
-  min-width: 7vmin;
-  min-height: 7vmin;
+  width: 7vmin;
+  height: 7vmin;
   cursor: pointer;
   transition: 0.2s ease-out;
-  margin-left: 4vmin; 
+  justify-content: center;
+  margin-left: 2vmin;
 }
+
 
 .okbtn-container:hover {
   background-color: #a81c1c;
@@ -1032,6 +1057,7 @@ margin-bottom: 1vmin;
 .newsletter-form {
   display: flex;
   align-items: center;
+  justify-content: space-between;
   padding-top: 3vmin;
 }
 
@@ -1261,8 +1287,8 @@ margin-bottom: 1vmin;
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 18vmin;
-  width: 18vmin;
+  height: 22vmin;
+  width: 22vmin;
   background-color: #E0DCDC;
   border-radius: 50%;
 }
