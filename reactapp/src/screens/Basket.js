@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from 'react';
-import {Link} from 'react-router-dom'
-import {connect} from 'react-redux'
+import {Link}                         from 'react-router-dom';
+import {connect}                      from 'react-redux';
 
-import Header from '../components/Header';
-import Text from '../components/Text';
-import Button from '../components/Button';
-import Footer from '../components/Footer';
-import Title from '../components/Title';
-import Subtitle from '../components/Subtitle';
-import SliderNow from '../components/SliderNow';
+import Header       from  '../components/Header';
+import Text         from '../components/Text';
+import Button       from '../components/Button';
+import Footer       from '../components/Footer';
+import Title        from '../components/Title';
+import Subtitle     from '../components/Subtitle';
+import SliderNow    from '../components/SliderNow';
 
 
 import {Row, Col} from 'antd';
@@ -30,25 +30,33 @@ function Basket(props){
 
         var ordersList = [];
         for (var i=0;i<basketList.length;i++){
-            
-            console.log('basketList[i] :', basketList[i]);
             var toSend = {
-                visitId: basketList[i].visitId,
-                infoId: basketList[i].infoId,
-                cover: basketList[i].img,
+                images: [basketList[i].img],
                 name: basketList[i].title,
-                price: basketList[i].price,
-                amount: basketList[i].quantity,
-
+                amount: basketList[i].price * 100,
+                currency: 'eur',
+                quantity: basketList[i].quantity,
             };
             ordersList.push(toSend)
         }
         
-        var rawRes = await fetch('/checkout/getCart', {
+
+        var rawRes = await fetch('/checkout/stripe', {
             method: 'POST',
             headers: {'Accept':'application/json', 'Content-Type':'application/json'},
-            body: JSON.stringify({orders: ordersList, total: totalCmd}),
+            body: JSON.stringify({orders: ordersList}),
         });
+
+        var response = await rawRes.json();
+
+        if (response.res) {
+            console.log(response);
+            // stripe.redirectToCheckout({
+            //     sessionId: response.res.sessionId,
+            // }).then(function(result) {
+            //     console.log('result :', result);
+            // });
+        }
 
     }
 
@@ -84,8 +92,6 @@ function Basket(props){
        totalCmd = basketList[i].price * basketList[i].quantity + totalCmd
        total = totalCmd + " €"
     }
-
-
 
     return(
 
@@ -179,9 +185,8 @@ function Basket(props){
         {/*  end partie mobile-fixed qui remplace className=menu-visit  */}
         
         <Footer/>
-
     </div>  
-
+    
     
     )
 }

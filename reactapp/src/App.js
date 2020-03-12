@@ -23,6 +23,7 @@ import SigninScreen   from './screens/Signin'
 import SignupScreen   from './screens/Signup'
 import SuccessScreen  from './screens/Success'
 import VisitScreen    from './screens/Visit'
+import PaymentScreen  from './screens/Payment'
 
 import RedirectToHome from '../src/toHome'
 
@@ -34,18 +35,19 @@ export default function App() {
     <Provider store={STORE}>
       <Router>
         <Switch>
-          <Route path="/"         exact component={RedirectToHome} />
-          <Route path="/home"     component={HomeScreen} />
-          <Route path="/about"    component={AboutScreen} />
-          <Route path="/account"  component={AccountScreen} />
-          <Route path="/book/:_id"     component={BookScreen} />
-          <Route path="/home"     component={HomeScreen} />
-          <Route path="/basket"   component={BasketScreen} />
-          <Route path="/results"  component={ResultsScreen} />
-          <Route path="/signin"   component={SigninScreen} />
-          <Route path="/signup"   component={SignupScreen} />
-          <Route path="/success"  component={SuccessScreen} />
-          <Route path="/visit/:_id"    component={VisitScreen} />
+          <Route path="/"           exact component={RedirectToHome} />
+          <Route path="/home"       component={HomeScreen} />
+          <Route path="/about"      component={AboutScreen} />
+          <Route path="/account"    component={AccountScreen} />
+          <Route path="/book/:_id"  component={BookScreen} />
+          <Route path="/home"       component={HomeScreen} />
+          <Route path="/basket"     component={BasketScreen} />
+          <Route path="/results"    component={ResultsScreen} />
+          <Route path="/signin"     component={SigninScreen} />
+          <Route path="/signup"     component={SignupScreen} />
+          <Route path="/success"    component={SuccessScreen} />
+          <Route path="/visit/:_id" component={VisitScreen} />
+          <Route path="/stripe/checkout" component={PaymentScreen} />
         </Switch>
       </Router>
     </Provider>

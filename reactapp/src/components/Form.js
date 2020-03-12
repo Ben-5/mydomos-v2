@@ -43,20 +43,24 @@ export default function Form (props) {
     }
 
     var finalPost = async() => {
-        var request = '';
-        for(var i=0;i<result.length;i++) {
-            if (i === 0) {request = request + `${result[i].name}=${result[i].value}`}
-            else {request = request + `&${result[i].name}=${result[i].value}`}
+        if (props.route) {
+            var request = '';
+            for(var i=0;i<result.length;i++) {
+                if (i === 0) {request = request + `${result[i].name}=${result[i].value}`}
+                else {request = request + `&${result[i].name}=${result[i].value}`}
+            }
+
+            var rawRes = await fetch(props.route, {
+                method: 'POST',
+                headers: {'Content-Type':'application/x-www-form-urlencoded'},
+                body: request
+            });
+
+            var prsRes = await rawRes.json();
+            props.getRes(prsRes)
+        } else {
+            props.getRes(result);
         }
-
-        var rawRes = await fetch(props.route, {
-            method: 'POST',
-            headers: {'Content-Type':'application/x-www-form-urlencoded'},
-            body: request
-        });
-
-        var prsRes = await rawRes.json();
-        props.getRes(prsRes)
     }
 
     var postTheForm = async() => {
