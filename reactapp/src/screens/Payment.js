@@ -43,11 +43,11 @@ function PaymentForm(props) {
                   card: elements.getElement(CardElement),
                   billing_details: {
                     "address": {
-                    //   "city": props.rdx.currentUser.userCity,
+                      "city": props.rdx.currentUser.userCity,
                       "country": 'FR',
-                    //   "line1": props.rdx.currentUser.userAdress,
+                      "line1": props.rdx.currentUser.userAdress,
                       "line2": null,
-                    //   "postal_code": props.rdx.currentUser.userZIP,
+                      "postal_code": props.rdx.currentUser.userZIP,
                       "state": null
                     },
                     "email": props.rdx.currentUser.userEmail,
@@ -64,17 +64,40 @@ function PaymentForm(props) {
 
                     //AFTER PAYMENT PROCEED
 
-                    setSucceed(true);
+                    //add the order to db
+
+                    var basket = props.rdx.visit;
+                    var request = [];
+                    for (var i=0;i<basket.length;i++){
+                        console.log('basket[i] :', basket[i]);
+                        request.push({
+                            quantity: basket[i].quantity,
+                            visitId: basket[i].visitId,
+                            slotId: basket[i].infoId,
+                            cover: basket[i].img,
+                            title: basket[i].title,
+                            price: basket[i].price,
+                        });
+                    }
+
+                    var rawRes = await fetch('/order', {
+                        method: 'POST',
+                        headers: {'Accept':'application/json','Content-Type':'application/json'},
+                        body: request,
+                    });
+
+
+                    // setSucceed(true);
                 }
             }
         }
     };
 
-    if (!props.rdx.currentUser || !props.rdx.currentPayment){
-        return <Redirect to='/signin'/>
-    } else if (succed) {
-        return <Redirect to={`/success/${orderRef}`}/>
-    } else {
+    // if (!props.rdx.currentUser || !props.rdx.currentPayment){
+    //     return <Redirect to='/signin'/>
+    // } else if (succed) {
+    //     return <Redirect to={`/success/${orderRef}`}/>
+    // } else {
         return (
             <div>
                  <CardElement  
@@ -106,7 +129,7 @@ function PaymentForm(props) {
                     <Button onClick={()=>handleSubmit()} buttonTitle='Payer'/>
             </div>              
         );
-    }
+    // }
 }
 
 
