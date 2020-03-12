@@ -6,15 +6,13 @@ import Header from '../components/Header';
 import Navigation from '../components/Navigation';
 import Title from '../components/Title';
 import Subtitle from '../components/Subtitle';
-import Text from '../components/Text';
-import Input from '../components/Input';
 import Button from '../components/Button';
 import FormInfoUser from '../components/FormInfoUser';
 import SliderNow from '../components/SliderNow';
 
-import {Col, Row, List} from 'antd';
-import {EditOutlined, LogoutOutlined} from '@ant-design/icons';
-import {Link, Redirect} from 'react-router-dom'
+import {Col, Row} from 'antd';
+import {LogoutOutlined} from '@ant-design/icons';
+import {Redirect} from 'react-router-dom'
 
 function Account(props) {
 
@@ -107,9 +105,9 @@ function Account(props) {
     ];
 
     var noOrder
-  if(dataOrder == 0){
-    noOrder = "Vous n'avez pas de réservation pour le moment."
-  }
+    if(dataOrder === 0){
+        noOrder = "Vous n'avez effectué aucune réservation pour le moment."
+    }
 
     
 

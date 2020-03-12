@@ -53,16 +53,6 @@ function Book(props){
         }
         props.addVisitToBasket(toAdd);
     }
-
-    //Afficher les billets restants
-    let stock
-    for (let i = 0; i < info.length; i ++) {
-        if (info[i].stock <= 3) {
-            console.log("if")
-            stock = <p className="book-stock">{`Il ne reste que ${info[i].stock} places`}</p> 
-        }
-
-    }
    
     var onChange = e => {
         setQuantity(e)
@@ -74,7 +64,7 @@ function Book(props){
         let optList = dataOptList.map((opt, k) => {
                   
         var styleInclu = {};
-                if(opt === "XXe" || opt === "XVIIIe" ){
+                if(opt === "XXe" || opt === "XVIIIe" || opt === "Perle rare" || opt === "By nigth"){
                  styleInclu = {display: "none"};
                 }  else{
                 styleInclu = {paddingRight:15};
@@ -93,9 +83,9 @@ function Book(props){
                 </div>
               
                 <div className="book-stock"><p className="book-stock">
-                    { data.stock < 3 ?  `Il ne reste que ${data.stock} places` : ""}
-                </p>
-                </div>
+                    { data.stock > 1 && data.stock < 4 ?  `Il ne reste que ${data.stock} places` : ""}
+                    { data.stock === 1 ?  `Il ne reste que ${data.stock} place` : ""}
+                </p></div>
 
                 </div>
                 <div className="grid-item-book book-ticket"><Text text={`${data.price} €`}/></div>

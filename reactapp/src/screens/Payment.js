@@ -24,17 +24,20 @@ function PaymentForm(props) {
 
     const [cardComplete, setCardComplete] = useState(false);
     const [error, setError] = useState(false);
-    console.log(props.rdx.currentPayment, props.rdx.currentUser)
+    const [succed, setSucceed] = useState(false);
+
+    //Ref de l'order a return
+    const [orderRef, setOrderRef] = useState(null);
+
+
     const handleSubmit = async () => {
 
-        const {error, paymentMethod} = await stripe.createPaymentMethod({
+        const {error} = await stripe.createPaymentMethod({
           type: 'card',
           card: elements.getElement(CardElement),
         });
 
-        if (error) {
-            console.log('[error]', error);
-        } else {
+        if(!error) {
             const result = await stripe.confirmCardPayment(`${props.rdx.currentPayment.client_secret}`, {
                 payment_method: {
                   card: elements.getElement(CardElement),
@@ -53,14 +56,51 @@ function PaymentForm(props) {
                   },
                 }
             });
+
+            if (result.error) {
+                console.log(result.error)
+            } else {
+                if (result.paymentIntent.status === 'succeeded') {
+
+                    //AFTER PAYMENT PROCEED
+
+                    //add the order to db
+
+                    var basket = props.rdx.visit;
+                    var request = [];
+                    for (var i=0;i<basket.length;i++){
+                        console.log('basket[i] :', basket[i]);
+                        request.push({
+                            quantity: basket[i].quantity,
+                            visitId: basket[i].visitId,
+                            slotId: basket[i].infoId,
+                            cover: basket[i].img,
+                            title: basket[i].title,
+                            price: basket[i].price,
+                        });
+                    }
+
+                    var rawRes = await fetch('/neworder', {
+                        method: 'POST',
+                        headers: {'Accept':'application/json','Content-Type':'application/json'},
+                        body: request,
+                    });
+
+
+                    // setSucceed(true);
+                }
+            }
         }
     };
 
-    // if (!props.rdx.currentUser){
-    //     return <Redirect to='/signin'/>
-    // } else {
+    if (!props.rdx.currentUser || !props.rdx.currentPayment){
+        return <Redirect to='/signin'/>
+    } else if (succed) {
+        return <Redirect to={`/success/${orderRef}`}/>
+    } else {
         return (
-            <div style={{backgroundColor: '#7795f8'}}>
+            <div className="stripe-main">
+                <div className="stripe-screen">
                  <CardElement  
                     onChange={(e) => {
                         setError(e.error);
@@ -70,37 +110,48 @@ function PaymentForm(props) {
                     options={{
                     iconStyle: 'solid',
                     style: {
-                        base: {
-                        iconColor: '#c4f0ff',
-                        color: '#fff',
-                        fontWeight: 500,
-                        fontFamily: 'Roboto, Open Sans, Segoe UI, sans-serif',
-                        fontSize: '16px',
-                        fontSmoothing: 'antialiased',
-                        ':-webkit-autofill': {color: '#fce883'},
-                        '::placeholder': {color: '#87bbfd'},
-                        },
-                        invalid: {
-                        iconColor: '#ffc7ee',
-                        color: '#ffc7ee',
-                        },
+                            base: {
+                                iconColor: '#b1abab',
+                                color: '#b1abab',
+                                fontWeight: 500,
+                                fontFamily: 'Roboto, Open Sans, Segoe UI, sans-serif',
+                                fontSize: '20px',
+                                fontSmoothing: 'antialiased',
+                                ':-webkit-autofill': {color: '#3d3d3d'},
+                                '::placeholder': {color: '#b1abab'},
+                            },
+                            invalid: {
+                                iconColor: '#791212',
+                                color: '#791212',
+                            },
                         },
                         }}
                     />
+                    </div>
+
                     <Button onClick={()=>handleSubmit()} buttonTitle='Payer'/>
             </div>              
         );
-    // }
+    }
 }
 
 
 function Payment(props) {
     return (
-        <div className='payement-page'>
-            <Elements stripe={stripePromise}>
-                <PaymentForm rdx={props.state} />
-            </Elements>
-        </div>
+            <div className='payement-page'>
+                <header className="header-container">
+                    <div className="header-logo">
+                        <img src="../logo.png" className="logo" alt="logo" />
+                        <div className="header-title">MYDOMOS</div>
+                    </div>
+                </header>
+                <div className='body-screen-stripe'>
+                    <img src="../card.png" className="card-picto" alt="card" />
+                    <Elements stripe={stripePromise}>
+                        <PaymentForm rdx={props.state} />
+                    </Elements>
+                </div>
+            </div>  
     );
 }
 
