@@ -21,6 +21,8 @@ router.post('/signup', async function(req, res, next) {
   var mail = req.body.email;
   var pswd = req.body.password;
 
+  console.log(lastname)
+  
   var user = await UserModel.findOne({
     userEmail: mail
   });
@@ -80,7 +82,6 @@ router.post('/changeavatar', async function(req, res, next) {
     { $set: { userAvatar : req.body.userAvatar}}
   );
 
-  
   res.json({result: true, avatarSaved: avatar});
 });
 

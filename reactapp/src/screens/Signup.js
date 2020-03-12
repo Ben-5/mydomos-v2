@@ -46,8 +46,8 @@ function Signup(props) {
                         containerClassName='sign-form'
                         route = 'users/signup'
                         inputList={[
-                            {name: 'firstname', placeholder: 'nom'},
-                            {name: 'lastname',placeholder:'prénom'},
+                            {name: 'lastname', placeholder: 'nom'},
+                            {name: 'firstname',placeholder:'prénom'},
                             {name: 'email',placeholder:'email'},
                             {name: 'password',placeholder:'mot de passe', type:'password'},
                             {name: 'confirmpassword',placeholder:'confirmez votre mot de passe',type:'password', match: 3}
