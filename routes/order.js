@@ -3,9 +3,6 @@ var router = express.Router();
 
 var orderModel = require('../models/order');
 
-router.get('/', function(req, res, next) {
-    res.send('respond with a resource');
-  });
 
 //Ajouter une nouvelle commande
 router.post('/neworder', async function(req, res, next) {
@@ -20,7 +17,12 @@ router.post('/neworder', async function(req, res, next) {
     );
   
     var orderSaved = await newOrder.save(); 
+
+    var userOrder = await UserModel.findOne(
+      { _id: req.body._id },
+      { $set: { userOrders : orderSaved}}
+    )
   
-    res.json({result: true, order: orderSaved}); 
+    res.json({result: true, order: orderSaved, userOrder : userOrder}); 
   })
 module.exports = router;
