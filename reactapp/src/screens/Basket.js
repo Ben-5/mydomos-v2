@@ -154,7 +154,6 @@ function Basket(props){
 
         {/*  end partie mobile-fixed qui remplace className=menu-visit  */}
         
-        <Footer/>
     </div>  
     
     

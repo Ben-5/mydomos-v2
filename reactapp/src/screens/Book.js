@@ -61,7 +61,45 @@ function Book(props){
             console.log("if")
             stock = <p className="book-stock">{`Il ne reste que ${info[i].stock} places`}</p> 
         }
+
     }
+
+    const order = info.map((data,i) => {
+
+        const dataOptList = data.opt;
+        let optList = dataOptList.map((opt, k) => {
+            
+            var styleInclu = {};
+                if(opt === "XXe" || opt === "XVIIIe" ){
+                 styleInclu = {display: "none"};
+                }  else{
+                styleInclu = {paddingRight:15};
+                }              
+                return ( <div key={k}  style={styleInclu} className="book-time"><Text text={opt}/></div>)
+            });
+        return (
+            <div key={i} className="grid-container-book" style={{borderTop :"solid 1px #B5ACAC"}}>
+
+                <div className="grid-item-book book-date">
+                <div className="book-date"><Text text={new Date(data.date).toLocaleDateString('fr-FR', options)}/></div>
+                <div className="book-time"><Text text={data.time}/></div>
+                <div className="book-time"><Text text={data.lang}/></div>
+                <div className="book-time" style={{display:'flex'}}>
+                {optList}
+                </div>
+              
+                <div className="book-stock"><p className="book-stock">
+                    { data.stock < 3 ?  `Il ne reste que ${data.stock} places` : ""}
+                </p>
+                </div>
+
+                </div>
+                <div><Text text={`${data.price} €`}/></div>
+                <div className="grid-item-book book-ticket"><InputNumber min={1} max={data.maxStock} defaultValue={1} onChange={e=>setQuantity(e)} value={quantity}/></div>
+                <div className="grid-item-book book-button"><Button buttonTitle="Valider" onClick={ () => {handleAdd(visit, data); goToBasket()}}/></div>
+        </div>
+        )
+        })
 
   return(
 
@@ -93,26 +131,7 @@ function Book(props){
             <div className="account-subtitle">
                 <Subtitle subtitle={`Les visites disponibles pour ${visit.title}`}/>
             </div>
-            {info.map((data,i) => (
-
-                <div key={i} className="grid-container-book" style={{borderTop :"solid 1px #B5ACAC"}}>
-
-                    <div className="grid-item-book book-date">
-                        <div className="book-date"><Text text={new Date(data.date).toLocaleDateString('fr-FR', options)}/></div>
-                        <div className="book-time"><Text text={data.time}/></div>
-                        <div className="book-time"><Text text={data.lang}/></div>
-                        <div className="book-time"><Text text={data.opt.join(" / ")}/></div>
-                        <div className="book-stock"><p className="book-stock">
-                            { data.stock > 1 && data.stock < 4 ?  `Il ne reste que ${data.stock} places` : ""}
-                            { data.stock === 1 ?  `Il ne reste que ${data.stock} place` : ""}
-                        </p></div>
-                        
-                    </div>
-                        <div><Text text={`${data.price} €`}/></div>
-                        <div className="grid-item-book book-ticket"><InputNumber min={1} max={data.maxStock} defaultValue={1} onChange={e=>setQuantity(e)} value={quantity}/></div>
-                        <div className="grid-item-book book-button"><Button buttonTitle="Valider" onClick={ () => {handleAdd(visit, data); goToBasket()}}/></div>
-                </div>
-                ))}
+            {order}
                 
         </div>
 
