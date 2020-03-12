@@ -68,12 +68,14 @@ function Book(props){
 
         const dataOptList = data.opt;
         let optList = dataOptList.map((opt, k) => {
-
+            
             var styleInclu = {};
                 if(opt === "XXe" || opt === "XVIIIe" ){
                  styleInclu = {display: "none"};
-                }
-                return ( <div key={k}  style={styleInclu} className="book-time"><Text text={`${opt} `}/></div>)
+                }  else{
+                styleInclu = {paddingRight:15};
+                }              
+                return ( <div key={k}  style={styleInclu} className="book-time"><Text text={opt}/></div>)
             });
         return (
             <div key={i} className="grid-container-book" style={{borderTop :"solid 1px #B5ACAC"}}>
@@ -82,7 +84,7 @@ function Book(props){
                 <div className="book-date"><Text text={new Date(data.date).toLocaleDateString('fr-FR', options)}/></div>
                 <div className="book-time"><Text text={data.time}/></div>
                 <div className="book-time"><Text text={data.lang}/></div>
-                <div style={{display:'flex'}}>
+                <div className="book-time" style={{display:'flex'}}>
                 {optList}
                 </div>
               
