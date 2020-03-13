@@ -5,8 +5,8 @@ import Footer from '../components/Footer';
 import Header from '../components/Header';
 import Navigation from '../components/Navigation';
 import Title from '../components/Title';
+import Text from '../components/Text'
 import Subtitle from '../components/Subtitle';
-import Text from '../components/Text';
 import Button from '../components/Button';
 import FormInfoUser from '../components/FormInfoUser';
 import SliderNow from '../components/SliderNow';
@@ -17,20 +17,21 @@ import {Redirect} from 'react-router-dom'
 
 function Account(props) {
 
-    const [currentUser, setCurrentUser] = useState(props.getCurrentUser || {});
-    const [avatar, setAvatar] = useState(props.getCurrentUser.userAvatar || "")
-    const [orderList, setOrderList] = useState([])
+    const [currentUser] = useState(props.getCurrentUser);
+    const [avatar, setAvatar] = useState(props.getCurrentUser.userAvatar || "");
+    const [dataOrder, setDataOrder] = useState([]);
 
-    // //Récupérer les commandes
-    // useEffect(() => {
-    //     window.scrollTo(0, 0)
-    //     const getOrderList = async() => {
-    //     const data = await fetch(`/order/getorder/${props.getCurrentUser.userOrders}`)
-    //     const body = await data.json()
-    //     setOrderList(body.visit)
-    //     }
-    //     getOrderList()
-    // },[]) 
+    useEffect(()=>{
+        if (currentUser.userRef){
+            var fetchData = async () => {
+                var rawResponse = await fetch(`/order/getorder?user=${currentUser.userRef}`);
+                var response = await rawResponse.json();
+                setDataOrder(response.orders);
+            }
+            fetchData();
+        }
+    }, []);
+
 
     
     //Sélectionner avatar
@@ -93,21 +94,14 @@ function Account(props) {
         borderA = {border: 'none'} 
     }
 
-    //Afficher les réservations de l'utilisateur
+    //Formater la date
+    const options = { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' };
 
-    
-    var noOrder
-    // if(dataOrder === 0){
-    //     noOrder = "Vous n'avez effectué aucune réservation pour le moment."
-    // }
-
-    console.log(orderList)
-    
 
     if (!props.getCurrentUser) {
         return <Redirect to="/signin"/>
     } else {
-
+        console.log('dataOrder :', dataOrder);
         return (
 
             <div  className="background">
@@ -181,19 +175,18 @@ function Account(props) {
 
                     <div className="account-subtitle">
                         <Subtitle subtitle="Mes réservations"/>
-                        <p style={{padding:0, fontSize:'1.4em'}}>{noOrder}</p>
                     </div>
 
-                    {orderList === [] ? "Vous n'avez effectué aucune réservation pour le moment." : 
+                    {dataOrder === [] ? "Vous n'avez effectué aucune réservation pour le moment." : 
                     <List className="reservations"
                         itemLayout="horizontal"
-                        dataSource={orderList}
-                        renderItem={order => (
+                        dataSource={dataOrder}
+                        renderItem={item => (
                         <List.Item
                             actions={[<Button buttonTitle="Voir"/>]}>
                             <List.Item.Meta
-                            title={<Text text={order.orderNumber}></Text>}
-                            description={order.orderDate}
+                            title={<Text text={item.orderVisits[0].title}></Text>}
+                            description={`${new Date(item.orderDate).toLocaleDateString('fr-FR', options)}`}
                             />
                         </List.Item>
                         )}

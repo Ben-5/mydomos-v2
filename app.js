@@ -17,6 +17,10 @@ app.locals.userRefForm = function(){
   return `${uniqid.time('user-')}`;
 }
 
+app.locals.orderRefForm = function(){
+  return `${uniqid.time('order-')}`;
+}
+
 app.locals.visitRefForm = function(country, zip, nb){
   return `${country}${zip}-${nb}`;
 }

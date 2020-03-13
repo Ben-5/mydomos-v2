@@ -12,7 +12,7 @@ import Navigation from '../components/Navigation';
 
 import {Row, Col} from 'antd';
 
-export default function Success(){
+export default function Success(props){
 
     return(
 
@@ -25,6 +25,7 @@ export default function Success(){
 
                 <Col className= "main-caption-text" xs ={{span:24, order:2}} sm ={{span:24, order:2}} md ={{span:24, order:2}} lg ={{span:12, order:1}} xl ={{span:12, order:1}}>
                     <Title title="Votre visite est réservée !"/>
+                    <Subtitle subtitle={`Numéro de commande: "${props.match.params.ref}"`}/>
                     <Subtitle subtitle="Vous allez recevoir un email de confimation."/>
                 </Col>
 

@@ -63,14 +63,12 @@ function PaymentForm(props) {
                 if (result.paymentIntent.status === 'succeeded') {
 
                     //AFTER PAYMENT PROCEED
-
                     //add the order to db
 
                     var basket = props.rdx.visit;
-                    var request = [];
+                    var orderList = [];
                     for (var i=0;i<basket.length;i++){
-                        console.log('basket[i] :', basket[i]);
-                        request.push({
+                        orderList.push({
                             quantity: basket[i].quantity,
                             visitId: basket[i].visitId,
                             slotId: basket[i].infoId,
@@ -80,26 +78,30 @@ function PaymentForm(props) {
                         });
                     }
 
-                    var rawRes = await fetch('/neworder', {
+                    var rawRes = await fetch('/order/neworder', {
                         method: 'POST',
                         headers: {'Accept':'application/json','Content-Type':'application/json'},
-                        body: request,
+                        body: JSON.stringify({order: orderList, userId: props.rdx.currentUser.userRef, total: result.paymentIntent.amount}),
                     });
 
-
-                    // setSucceed(true);
+                    var response = await rawRes.json();
+                    if (response.result) {
+                        setOrderRef(response.response.orderRef);
+                        setSucceed(true);
+                    }
                 }
             }
         }
     };
 
-    // if (!props.rdx.currentUser || !props.rdx.currentPayment){
-    //     return <Redirect to='/signin'/>
-    // } else if (succed) {
-    //     return <Redirect to={`/success/${orderRef}`}/>
-    // } else {
+    if (!props.rdx.currentUser || !props.rdx.currentPayment){
+        return <Redirect to='/signin'/>
+    } else if (succed) {
+        return <Redirect to={`/success/${orderRef}`}/>
+    } else {
         return (
-            <div>
+            <div className="stripe-main">
+                <div className="stripe-screen">
                  <CardElement  
                     onChange={(e) => {
                         setError(e.error);
@@ -110,26 +112,28 @@ function PaymentForm(props) {
                     iconStyle: 'solid',
                     style: {
                             base: {
-                                iconColor: '#c4f0ff',
-                                color: '#fff',
+                                iconColor: '#b1abab',
+                                color: '#b1abab',
                                 fontWeight: 500,
                                 fontFamily: 'Roboto, Open Sans, Segoe UI, sans-serif',
-                                fontSize: '16px',
+                                fontSize: '20px',
                                 fontSmoothing: 'antialiased',
-                                ':-webkit-autofill': {color: '#fce883'},
-                                '::placeholder': {color: '#87bbfd'},
+                                ':-webkit-autofill': {color: '#3d3d3d'},
+                                '::placeholder': {color: '#b1abab'},
                             },
                             invalid: {
-                                iconColor: '#ffc7ee',
-                                color: '#ffc7ee',
+                                iconColor: '#791212',
+                                color: '#791212',
                             },
                         },
                         }}
                     />
+                    </div>
+
                     <Button onClick={()=>handleSubmit()} buttonTitle='Payer'/>
             </div>              
         );
-    // }
+    }
 }
 
 

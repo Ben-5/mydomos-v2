@@ -4,35 +4,28 @@ var router = express.Router();
 var orderModel = require('../models/order');
 
 
+//Récupérer les commandes
+router.get('/getorder', async function(req, res, next) {
+
+  var response = await orderModel.find({ orderUser: req.query.user })
+
+  res.json({result: true, orders: response})
+});
+
 //Ajouter une nouvelle commande
 router.post('/neworder', async function(req, res, next) {
-  
+
     var newOrder = await new orderModel ({
-      orderNumber: req.body.orderNumber,
-      orderDate:  req.body.orderDate,
-      orderNbTickets: req.body.orderNbTickets,
-      orderTotal: req.body.orderTotal,
-      orderVisits: req.body.orderVisits,
+      orderRef:       await req.app.locals.orderRefForm(),
+      orderDate:      new Date(),
+      orderTotal:     req.body.total,
+      orderUser:      req.body.userId,
+      orderVisits:    req.body.order,
       }
     );
-  
     var orderSaved = await newOrder.save(); 
-
-    var userOrder = await UserModel.findOne(
-      { _id: req.body._id },
-      { $set: { userOrders : orderSaved}}
-    )
   
-    res.json({result: true, order: orderSaved, userOrder : userOrder}); 
+    res.json({result: true, response: orderSaved});
   })
-
-  // //Afficher les commandes
-  // router.get('/getorder/:id', async function(req, res, next) {
-
-  //   var order = await orderModel.findOne({_id : req.params.id});
-  //   console.log(order)
-  
-  //   res.json({result: true, order : order}); 
-  // });
 
 module.exports = router;

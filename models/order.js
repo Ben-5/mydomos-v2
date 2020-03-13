@@ -1,13 +1,22 @@
 var mongoose = require('mongoose');
 
 var orderSchema = mongoose.Schema({
-    orderNumber:    Number,
-    orderDate:      Date,
-    orderNbTickets: Number,
-    orderTotal:     Number,
-    orderVisits:    [{ type: mongoose.Schema.Types.ObjectId, ref: 'visits' }],
+    quantity: Number,
+    visitId: String,
+    slotId: String,
+    cover: String,
+    title: String,
+    price: Number,                       
 });
 
-var orderModel = mongoose.model('orders', orderSchema);
+var ordersSchema = mongoose.Schema({
+    orderRef:       String,
+    orderDate:      Date,
+    orderTotal:     Number,
+    orderUser:      String,
+    orderVisits:    [orderSchema],
+});
+
+var orderModel = mongoose.model('orders', ordersSchema);
 
 module.exports = orderModel;
