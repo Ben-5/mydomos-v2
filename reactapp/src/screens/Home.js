@@ -59,7 +59,7 @@ function App(props) {
                     <Col className="middle-caption-text-button" xs ={{span:24, order:2}} sm ={{span:24, order:2}} md ={{span:24, order:2}} lg ={{span:12, order:2}}>
                         <div className="middle-caption-text">
                             <h1 className="middle-caption-title">Ceci n'est pas un musée</h1>
-                            <Subtitle subtitle="Résérvéz des visites exclusives de maisons historiques privées animées par des propriétaires passionés"/>
+                            <Subtitle subtitle="Réservez des visites exclusives de maisons historiques privées animées par des propriétaires passionés"/>
                         </div>
                         <LightButton link='/about' buttonTitle="Découvrir"/>
                     </Col>
@@ -84,7 +84,7 @@ function App(props) {
 
         <div className= "bottom-caption">
                         <span className="bottom-caption-image"><img src="../closer.png" className="closer" alt="closer"/></span>  
-                        <h1 className="closer-title">Y'a quelq'un ?</h1>
+                        <h1 className="closer-title">Y'a quelqu'un ?</h1>
                         <LightButton link='/about' buttonTitle="Entrez !"/>
         </div>
       <Footer/>
