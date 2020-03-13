@@ -201,7 +201,7 @@ export default function Visit(props){
 
     <Row gutter={[32, 32]} className="votre-hote">
         <Col lg={{span:112}}>
-            <Avatar className="avatar-hote" size={100} icon={<UserOutlined />} />
+            <Avatar className="avatar-hote" size={100} src={'/hote.png'} />
             <Subtitle subtitle="Votre hôte"/>
             <Text  text={data.host}/>
         </Col>     
