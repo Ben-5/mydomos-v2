@@ -10,11 +10,11 @@ function Navigation(props) {
   var pictoAvatar
   if (props.getCurrentUser) {
           if (props.getCurrentUser.userAvatar === "avatarMedusa") {
-              pictoAvatar = "https://i.pinimg.com/originals/71/9c/e0/719ce0c638ca25a20bdf096ffc0e6501.png"
+              pictoAvatar = "https://i.pinimg.com/originals/fb/31/50/fb3150026430539cfc9f53bc0c4f64cc.png"
           } else if (props.getCurrentUser.userAvatar === "avatarArmor") {
-              pictoAvatar = "https://i.pinimg.com/originals/6d/7e/d1/6d7ed13dc8172578feaa84dbd25c915b.png"
+              pictoAvatar = "https://i.pinimg.com/originals/df/f6/55/dff6552bc8924812220820b043f91702.png"
           } else if (props.getCurrentUser.userAvatar === "avatarWig") {
-              pictoAvatar = "https://i.pinimg.com/originals/3c/62/96/3c62962b72f5a24b854cfce7049424de.png"
+              pictoAvatar = "https://i.pinimg.com/originals/61/81/da/6181da56637a1c30182c375658ad0e65.png"
           }    
   } else {
       pictoAvatar = "../picto-key.png"
