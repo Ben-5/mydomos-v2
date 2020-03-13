@@ -7,26 +7,16 @@ var orderModel = require('../models/order');
 //Ajouter une nouvelle commande
 router.post('/neworder', async function(req, res, next) {
 
-
-    console.log('req.body :', req.body);
-
-
-    // var newOrder = await new orderModel ({
-    //   orderNumber: req.body.orderNumber,
-    //   orderDate:  req.body.orderDate,
-    //   orderNbTickets: req.body.orderNbTickets,
-    //   orderTotal: req.body.orderTotal,
-    //   orderVisits: req.body.orderVisits,
-    //   }
-    // );
+    var newOrder = await new orderModel ({
+      orderRef:       await req.app.locals.orderRefForm(),
+      orderDate:      new Date(),
+      orderTotal:     req.body.total,
+      orderUser:      req.body.userId,
+      orderVisits:    req.body.order,
+      }
+    );
+    var orderSaved = await newOrder.save(); 
   
-    // var orderSaved = await newOrder.save(); 
-
-    // var userOrder = await UserModel.findOne(
-    //   { _id: req.body._id },
-    //   { $set: { userOrders : orderSaved}}
-    // )
-  
-    res.json({result: true}); 
+    res.json({result: true, response: orderSaved});
   })
 module.exports = router;

@@ -10,9 +10,10 @@ var orderSchema = mongoose.Schema({
 });
 
 var ordersSchema = mongoose.Schema({
-    orderRef:       Number,
+    orderRef:       String,
     orderDate:      Date,
     orderTotal:     Number,
+    orderUser:      String,
     orderVisits:    [orderSchema],
 });
 

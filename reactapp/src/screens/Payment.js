@@ -84,8 +84,11 @@ function PaymentForm(props) {
                         body: JSON.stringify({order: orderList, userId: props.rdx.currentUser.userRef, total: result.paymentIntent.amount}),
                     });
 
-
-                    // setSucceed(true);
+                    var response = await rawRes.json();
+                    if (response.result) {
+                        setOrderRef(response.response.orderRef);
+                        setSucceed(true);
+                    }
                 }
             }
         }
