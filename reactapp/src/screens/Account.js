@@ -1,26 +1,40 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {connect} from 'react-redux';
 
 import Footer from '../components/Footer';
 import Header from '../components/Header';
 import Navigation from '../components/Navigation';
 import Title from '../components/Title';
+import Text from '../components/Text'
 import Subtitle from '../components/Subtitle';
 import Button from '../components/Button';
 import FormInfoUser from '../components/FormInfoUser';
 import SliderNow from '../components/SliderNow';
 
-import {Col, Row} from 'antd';
+import {Col, Row, List} from 'antd';
 import {LogoutOutlined} from '@ant-design/icons';
 import {Redirect} from 'react-router-dom'
 
 function Account(props) {
 
-    const [currentUser, setCurrentUser] = useState(props.getCurrentUser || {});
-    const [avatar, setAvatar] = useState(props.getCurrentUser.userAvatar || "")
-    const [wig, setWig] = useState(false)
-    const [armor, setArmor] = useState(false)
-    const [medusa, setMedusa] = useState(false)
+    const [currentUser] = useState(props.getCurrentUser);
+    const [avatar, setAvatar] = useState(props.getCurrentUser.userAvatar || "");
+    const [wig, setWig] = useState(false);
+    const [armor, setArmor] = useState(false);
+    const [medusa, setMedusa] = useState(false);
+
+    const [dataOrder, setDataOrder] = useState([]);
+
+    useEffect(()=>{
+        if (currentUser.userRef){
+            var fetchData = async () => {
+                var rawResponse = await fetch(`/order/getorder?user=${currentUser.userRef}`);
+                var response = await rawResponse.json();
+                setDataOrder(response.orders);
+            }
+            fetchData();
+        }
+    }, []);
 
 
     
@@ -92,29 +106,15 @@ function Account(props) {
         borderA = {border: 'none'} 
     }
 
-    //Afficher les réservations de l'utilisateur
-
-    const dataOrder = [
-        // {
-        //     title: 'Réservation 357',
-        //     description: 'lundi 1 janvier 2020'
-        // },{
-        //     title: 'Réservation 841',
-        //     description: 'lundi 1 janvier 2020'
-        // },
-    ];
-
-    var noOrder
-    if(dataOrder === 0){
+    var noOrder;
+    if(dataOrder.length === 0){
         noOrder = "Vous n'avez effectué aucune réservation pour le moment."
     }
-
-    
 
     if (!props.getCurrentUser) {
         return <Redirect to="/signin"/>
     } else {
-
+        console.log('dataOrder :', dataOrder);
         return (
 
             <div  className="background">
@@ -190,19 +190,19 @@ function Account(props) {
                         <Subtitle subtitle="Mes réservations"/>
                         <p style={{padding:0, fontSize:'1.4em'}}>{noOrder}</p>
                     </div>
-                    {/* <List className="reservations"
+                    <List className="reservations"
                         itemLayout="horizontal"
                         dataSource={dataOrder}
                         renderItem={item => (
                         <List.Item
                             actions={[<Button buttonTitle="Voir"/>]}>
                             <List.Item.Meta
-                            title={<Text text={item.title}></Text>}
-                            description={item.description}
+                            title={<Text text={item.orderVisits[0].title}></Text>}
+                            description={item.orderDate}
                             />
                         </List.Item>
                         )}
-                    /> */}
+                    />
 
                 </div>
                 {/* SLIDER */}

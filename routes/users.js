@@ -8,7 +8,6 @@ var uid2 = require("uid2");
 
 //db models
 var UserModel = require('../models/user');
-var orderModel = require('../models/order');
 
 /* GET users listing. */
 router.get('/', function(req, res, next) {
