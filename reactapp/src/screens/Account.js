@@ -19,10 +19,6 @@ function Account(props) {
 
     const [currentUser] = useState(props.getCurrentUser);
     const [avatar, setAvatar] = useState(props.getCurrentUser.userAvatar || "");
-    const [wig, setWig] = useState(false);
-    const [armor, setArmor] = useState(false);
-    const [medusa, setMedusa] = useState(false);
-
     const [dataOrder, setDataOrder] = useState([]);
 
     useEffect(()=>{
@@ -47,9 +43,6 @@ function Account(props) {
     //La méduse
     var chooseMedusa = async (avatar) => {
         setAvatar("avatarMedusa")
-        setWig(false)
-        setArmor(false)
-        setMedusa(true)
         
         const response = await fetch('/users/changeavatar', {
             method: 'POST',
@@ -63,9 +56,6 @@ function Account(props) {
     //Le casque
     var chooseArmor = async (avatar) => {
         setAvatar("avatarArmor")
-        setWig(false)
-        setArmor(true)
-        setMedusa(false)
 
         const response = await fetch('/users/changeavatar', {
             method: 'POST',
@@ -79,9 +69,7 @@ function Account(props) {
     //La perruque
     var chooseWig = async (avatar) => {
         setAvatar("avatarWig")
-        setWig(true)
-        setArmor(false)
-        setMedusa(false)
+        
 
         const response = await fetch('/users/changeavatar', {
             method: 'POST',
@@ -106,10 +94,9 @@ function Account(props) {
         borderA = {border: 'none'} 
     }
 
-    var noOrder;
-    if(dataOrder.length === 0){
-        noOrder = "Vous n'avez effectué aucune réservation pour le moment."
-    }
+    //Formater la date
+    const options = { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' };
+
 
     if (!props.getCurrentUser) {
         return <Redirect to="/signin"/>
@@ -188,8 +175,9 @@ function Account(props) {
 
                     <div className="account-subtitle">
                         <Subtitle subtitle="Mes réservations"/>
-                        <p style={{padding:0, fontSize:'1.4em'}}>{noOrder}</p>
                     </div>
+
+                    {dataOrder === [] ? "Vous n'avez effectué aucune réservation pour le moment." : 
                     <List className="reservations"
                         itemLayout="horizontal"
                         dataSource={dataOrder}
@@ -198,11 +186,12 @@ function Account(props) {
                             actions={[<Button buttonTitle="Voir"/>]}>
                             <List.Item.Meta
                             title={<Text text={item.orderVisits[0].title}></Text>}
-                            description={item.orderDate}
+                            description={`${new Date(item.orderDate).toLocaleDateString('fr-FR', options)}`}
                             />
                         </List.Item>
                         )}
                     />
+                    }
 
                 </div>
                 {/* SLIDER */}

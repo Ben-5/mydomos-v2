@@ -25,7 +25,6 @@ function FormInfoUser(props) {
     const [userCountry, setCountry] = useState(currentUser.userCountry || "France")
 
     var info = {userLastname, userFirstname, userEmail, userBirthday, userAddress, userZIP, userCity, userCountry}
-    console.log("info: ", info)
 
     var updateUser = async (info) => {
         const response = await fetch('/users/updateInfo', {

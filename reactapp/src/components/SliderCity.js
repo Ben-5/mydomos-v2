@@ -21,15 +21,14 @@ export default function SliderCity() {
         getslider()  
     },[])
 
-// recuperation info pour slider CITY (en ce moment à Paris)  + Mecanique note
-const tabSlider = slider.map((visit, i) => {
+    // recuperation info pour slider CITY (en ce moment à Paris)  + Mecanique note
+    const tabSlider = slider.map((visit, i) => {
     
     var priceInfo = null
     for(var l=0; l<visit.info.length; l++){
         if(priceInfo === null || priceInfo > visit.info[l].price){
             priceInfo = visit.info[l].price
         }
-        console.log(priceInfo)
     }
 
 

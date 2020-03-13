@@ -2,13 +2,14 @@ var express = require('express');
 var router = express.Router();
 
 var orderModel = require('../models/order');
-var userModel = require('../models/user');
 
 
-//Recuperer les commandes
+//Récupérer les commandes
 router.get('/getorder', async function(req, res, next) {
+
   var response = await orderModel.find({ orderUser: req.query.user })
-  res.json({res: true, orders: response})
+
+  res.json({result: true, orders: response})
 });
 
 //Ajouter une nouvelle commande
@@ -26,4 +27,5 @@ router.post('/neworder', async function(req, res, next) {
   
     res.json({result: true, response: orderSaved});
   })
+
 module.exports = router;
