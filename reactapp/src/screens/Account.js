@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {connect} from 'react-redux';
 
 import Footer from '../components/Footer';
@@ -6,11 +6,12 @@ import Header from '../components/Header';
 import Navigation from '../components/Navigation';
 import Title from '../components/Title';
 import Subtitle from '../components/Subtitle';
+import Text from '../components/Text';
 import Button from '../components/Button';
 import FormInfoUser from '../components/FormInfoUser';
 import SliderNow from '../components/SliderNow';
 
-import {Col, Row} from 'antd';
+import {Col, Row, List} from 'antd';
 import {LogoutOutlined} from '@ant-design/icons';
 import {Redirect} from 'react-router-dom'
 
@@ -18,10 +19,18 @@ function Account(props) {
 
     const [currentUser, setCurrentUser] = useState(props.getCurrentUser || {});
     const [avatar, setAvatar] = useState(props.getCurrentUser.userAvatar || "")
-    const [wig, setWig] = useState(false)
-    const [armor, setArmor] = useState(false)
-    const [medusa, setMedusa] = useState(false)
+    const [orderList, setOrderList] = useState([])
 
+    // //Récupérer les commandes
+    // useEffect(() => {
+    //     window.scrollTo(0, 0)
+    //     const getOrderList = async() => {
+    //     const data = await fetch(`/order/getorder/${props.getCurrentUser.userOrders}`)
+    //     const body = await data.json()
+    //     setOrderList(body.visit)
+    //     }
+    //     getOrderList()
+    // },[]) 
 
     
     //Sélectionner avatar
@@ -33,9 +42,6 @@ function Account(props) {
     //La méduse
     var chooseMedusa = async (avatar) => {
         setAvatar("avatarMedusa")
-        setWig(false)
-        setArmor(false)
-        setMedusa(true)
         
         const response = await fetch('/users/changeavatar', {
             method: 'POST',
@@ -49,9 +55,6 @@ function Account(props) {
     //Le casque
     var chooseArmor = async (avatar) => {
         setAvatar("avatarArmor")
-        setWig(false)
-        setArmor(true)
-        setMedusa(false)
 
         const response = await fetch('/users/changeavatar', {
             method: 'POST',
@@ -65,9 +68,7 @@ function Account(props) {
     //La perruque
     var chooseWig = async (avatar) => {
         setAvatar("avatarWig")
-        setWig(true)
-        setArmor(false)
-        setMedusa(false)
+        
 
         const response = await fetch('/users/changeavatar', {
             method: 'POST',
@@ -94,21 +95,13 @@ function Account(props) {
 
     //Afficher les réservations de l'utilisateur
 
-    const dataOrder = [
-        // {
-        //     title: 'Réservation 357',
-        //     description: 'lundi 1 janvier 2020'
-        // },{
-        //     title: 'Réservation 841',
-        //     description: 'lundi 1 janvier 2020'
-        // },
-    ];
-
+    
     var noOrder
-    if(dataOrder === 0){
-        noOrder = "Vous n'avez effectué aucune réservation pour le moment."
-    }
+    // if(dataOrder === 0){
+    //     noOrder = "Vous n'avez effectué aucune réservation pour le moment."
+    // }
 
+    console.log(orderList)
     
 
     if (!props.getCurrentUser) {
@@ -190,19 +183,22 @@ function Account(props) {
                         <Subtitle subtitle="Mes réservations"/>
                         <p style={{padding:0, fontSize:'1.4em'}}>{noOrder}</p>
                     </div>
-                    {/* <List className="reservations"
+
+                    {orderList === [] ? "Vous n'avez effectué aucune réservation pour le moment." : 
+                    <List className="reservations"
                         itemLayout="horizontal"
-                        dataSource={dataOrder}
-                        renderItem={item => (
+                        dataSource={orderList}
+                        renderItem={order => (
                         <List.Item
                             actions={[<Button buttonTitle="Voir"/>]}>
                             <List.Item.Meta
-                            title={<Text text={item.title}></Text>}
-                            description={item.description}
+                            title={<Text text={order.orderNumber}></Text>}
+                            description={order.orderDate}
                             />
                         </List.Item>
                         )}
-                    /> */}
+                    />
+                    }
 
                 </div>
                 {/* SLIDER */}

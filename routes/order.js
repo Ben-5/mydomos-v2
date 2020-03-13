@@ -25,4 +25,14 @@ router.post('/neworder', async function(req, res, next) {
   
     res.json({result: true, order: orderSaved, userOrder : userOrder}); 
   })
+
+  // //Afficher les commandes
+  // router.get('/getorder/:id', async function(req, res, next) {
+
+  //   var order = await orderModel.findOne({_id : req.params.id});
+  //   console.log(order)
+  
+  //   res.json({result: true, order : order}); 
+  // });
+
 module.exports = router;
