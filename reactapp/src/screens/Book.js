@@ -21,13 +21,21 @@ function Book(props){
     useEffect(() => {
         window.scrollTo(0, 0)
         const getinfo = async() => {
-        const response = await fetch(`/visit/book/${props.match.params._id}`)
-        const data = await response.json()
-        setVisit(data.visit[0])
-        setInfo(data.visit[0].info) 
+
+            const response = await fetch(`/visit/book/${props.match.params._id}`)
+            const data = await response.json()
+            setVisit(data.visit[0])
+            setInfo(data.visit[0].info)
+            
+            var toSendToState = [];
+
+            for (var i=0;i<data.visit[0].info.length;i++) {
+                toSendToState.push(1);
+            }
+            setQuantity(toSendToState);
         }
         getinfo()
-    },[])
+    },[props.match.params._id])
 
 
     //Formater la date
@@ -39,7 +47,7 @@ function Book(props){
         props.history.push("/basket")
     }
 
-    var handleAdd = (visit, save) => {
+    var handleAdd = (visit, save, index) => {
         var toAdd = {
             visitId: visit._id,
             infoId: save._id,
@@ -47,15 +55,17 @@ function Book(props){
             date: save.date,
             time: save.time,
             price: save.price,
-            quantity: quantity,
+            quantity: quantity[index],
             stock: save.stock,
             img: visit.cover,
         }
         props.addVisitToBasket(toAdd);
     }
    
-    var onChange = e => {
-        setQuantity(e)
+    var onChange = (value, index) => {
+        var cpy = quantity;
+        cpy[index] = value;
+        setQuantity(cpy);
     }
 
     const order = info.map((data,i) => {
@@ -90,9 +100,9 @@ function Book(props){
                 </div>
                 <div className="grid-item-book book-ticket"><Text text={`${data.price} €`}/></div>
                 <div>
-                    <div className="grid-item-book book-ticket"><InputNumber min={1} max={data.maxStock} defaultValue={1} onChange={onChange} /></div>
+                    <div className="grid-item-book book-ticket"><InputNumber min={1} max={data.maxStock} defaultValue={1} onChange={(e)=>onChange(e, i)} /></div>
                 </div>
-                    <div  className="grid-item-book book-button"><Button buttonTitle="Valider" onClick={ () => {handleAdd(visit, data); goToBasket()}}/></div>
+                    <div  className="grid-item-book book-button"><Button buttonTitle="Valider" onClick={ () => {handleAdd(visit, data, i); goToBasket()}}/></div>
                 
         </div>
         )
